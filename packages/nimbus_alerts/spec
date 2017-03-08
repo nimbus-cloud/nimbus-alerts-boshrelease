@@ -1,0 +1,5 @@
+---
+name: nimbus_alerts
+
+files:
+  - nimbus_alerts/**/*

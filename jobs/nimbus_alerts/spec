@@ -1,0 +1,9 @@
+---
+name: nimbus_alerts
+
+packages:
+  - nimbus_alerts
+
+templates: {}
+
+properties: {}

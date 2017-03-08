@@ -1,0 +1,7 @@
+ALERT MYSQLQuotaAboutToExhaust
+  IF max(mysql_quota_usage) by(db_name) > 0.7  # more than 70% usage
+  FOR 5m
+  ANNOTATIONS {
+    summary = "MYSQL Quota: database used more than 70% of allowed quota",
+    description = "MYSQL database `{{$labels.db_name}}` uses `{{$labels.db_size_mb}}`MB out of `{{$labels.db_max_storage_mb}}`MB quota",
+  }
