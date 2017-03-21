@@ -1,5 +1,5 @@
 ALERT SHIELDBackupFailed
-  IF max(shield_failed_backup_tasks) by(job_name, status, type) < 1
+  IF max(shield_failed_backup_tasks) by(job_name, status, type) > 0
   FOR 5m
   ANNOTATIONS {
     summary = "SHIELD: Backup task failed",
