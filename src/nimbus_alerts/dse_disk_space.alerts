@@ -1,0 +1,12 @@
+ALERT DSEFileSystemSpace
+  IF node_filesystem_avail{job="cassandra",mountpoint="/"} < node_filesystem_size{job="cassandra",mountpoint="/"}/2
+  FOR 1h
+  LABELS {
+    service = "cassandra",
+    severity = "warning",
+  }
+  ANNOTATIONS {
+    summary = "DSE Node is below 50%",
+    description = "DSE Node is below 50% free disk",
+    product = "OCP"
+  }
