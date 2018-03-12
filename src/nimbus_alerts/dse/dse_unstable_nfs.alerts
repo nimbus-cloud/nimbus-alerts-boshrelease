@@ -4,10 +4,10 @@ ALERT DSEUnstableNFS
   LABELS {
     service = "cassandra",
     severity = "warning",
+    spark = "false",
+    monitored_item = `{{$labels.instance}}/{{$labels.job}}`,
   }
   ANNOTATIONS {
-    summary = "Node in DSE is experincing unstable NFS",
-    description = "Node in DSE is experincing unstable NFS",
-    product = "OCP"
+    summary = "DSE node is experincing unstable NFS",
+    description = "DSE node is experincing unstable NFS mount",
   }
-
