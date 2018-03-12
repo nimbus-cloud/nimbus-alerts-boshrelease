@@ -2,12 +2,12 @@ ALERT DSEUnstableNFS
   IF node_memory_NFS_Unstable{job="cassandra"} > 0 
   FOR 10m
   LABELS {
-    service = "cassandra",
+    service = "dse-cassandra",
     severity = "warning",
     spark = "false",
     monitored_item = `{{$labels.instance}}/{{$labels.job}}`,
   }
   ANNOTATIONS {
     summary = "DSE node is experincing unstable NFS",
-    description = "DSE node is experincing unstable NFS mount",
+    description = "DSE node `{{$labels.instance}}/{{$labels.job}}` is experincing unstable NFS mount",
   }

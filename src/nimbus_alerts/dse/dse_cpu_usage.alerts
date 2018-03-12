@@ -8,6 +8,6 @@ ALERT DSEHighCPULoad
     monitored_item = `{{$labels.instance}}/{{$labels.job}}`,
   }
   ANNOTATIONS {
-    summary = "Node in env {{$labels.environment}} - {{$labels.instance}} is reporting a high CPU load average",
-    description = "Node had a CPU load average (1m) above 16 for 10 minutes: {{$value}}",
+    summary = "DSE node `{{$labels.instance}}/{{$labels.job}}` is reporting a high CPU load average",
+    description = "DSE node `{{$labels.instance}}/{{$labels.job}}` had a CPU load average (1m) above 16 for 10 minutes: {{$value}}",
   }

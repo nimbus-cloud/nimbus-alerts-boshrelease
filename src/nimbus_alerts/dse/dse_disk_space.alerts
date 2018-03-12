@@ -9,5 +9,5 @@ ALERT DSEFileSystemSpace
   }
   ANNOTATIONS {
     summary = "DSE node disk is below 50%",
-    description = "DSE Node is below 50% free disk space",
+    description = "DSE node `{{$labels.instance}}/{{$labels.job}}` is below 50% free disk space: {{$value}}",
   }
