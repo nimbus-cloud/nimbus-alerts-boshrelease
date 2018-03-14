@@ -4,7 +4,7 @@ ALERT ConsulDown
   LABELS {
     service = "consul",
     severity = "major",
-    spark = "true",  --- create spark ticket
+    spark = "true",
     monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
   }
   ANNOTATIONS {
@@ -18,7 +18,7 @@ ALERT ConsulNodeHealthCheckFailing
   LABELS {
     service = "consul",
     severity = "major",
-    spark = "true",  --- create spark ticket
+    spark = "true",
     monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
   }
   ANNOTATIONS {
@@ -32,7 +32,7 @@ ALERT ConsulMoreThanOneLeader
   LABELS {
     service = "consul",
     severity = "major",
-    spark = "true",  --- create spark ticket
+    spark = "true",   
     monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
   }
   ANNOTATIONS {
