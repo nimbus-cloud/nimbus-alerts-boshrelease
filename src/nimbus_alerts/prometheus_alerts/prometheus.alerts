@@ -1,0 +1,83 @@
+ALERT PrometheusScrapeError
+  IF up == 0
+  FOR 15m
+  LABELS {
+    service = "prometheus",
+    severity = "warning",
+    spark = "false",
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+  }
+  ANNOTATIONS {
+    summary = "Prometheus instance `{{$labels.instance}}` (scrape job `{{$labels.job}}`) down or not reachable",
+    description = "The Prometheus instance at `{{$labels.instance}}` for scrape job `{{$labels.job}}` has been down or has not been reachable during the last 15m",
+  }
+
+ALERT PrometheusConfigReloadFailed
+  IF prometheus_config_last_reload_successful == 0
+  FOR 15m
+  LABELS {
+    service = "prometheus",
+    severity = "warning",
+    spark = "false",
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+  }
+  ANNOTATIONS {
+    summary = "Prometheus instance `{{$labels.instance}}` config reload failed",
+    description = "The Prometheus instance at `{{$labels.instance}}` has failed to reload its configuration during the last 15m",
+  }
+
+ALERT PrometheusSkippingScrapes
+  IF rate(prometheus_target_skipped_scrapes_total[5m]) > 1
+  FOR 10m
+  LABELS {
+    service = "prometheus",
+    severity = "warning",
+    spark = "false",
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,    
+  }
+  ANNOTATIONS {
+    summary = "Prometheus instance `{{$labels.instance}}` is skipping scrapes",
+    description = "The Prometheus instance at `{{$labels.instance}}` has been skipping scrapes during the last 10m",
+  }
+
+ALERT PrometheusExceededSampleLimit
+  IF rate(prometheus_target_scrapes_exceeded_sample_limit_total[5m]) > 1
+  FOR 10m
+  LABELS {
+    service = "prometheus",
+    severity = "warning",
+    spark = "false",
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,    
+  }
+  ANNOTATIONS {
+    summary = "Prometheus instance `{{$labels.instance}}` exceeded the sample limit",
+    description = "The Prometheus instance at `{{$labels.instance}}` exceeded the sample limit during the last 10m",
+  }
+
+ALERT PrometheusNotificationsDroppedTooHigh
+  IF rate(prometheus_notifications_dropped_total[5m]) > 1
+  FOR 10m
+  LABELS {
+    service = "prometheus",
+    severity = "warning",
+    spark = "false",
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,    
+  }
+  ANNOTATIONS {
+    summary = "Prometheus instance `{{$labels.instance}}` is dropping notifications",
+    description = "The Prometheus instance at `{{$labels.instance}}` has been dropping to much notifications during the last 10m",
+  }
+
+ALERT PrometheusNotificationsQueueTooHigh
+  IF rate(prometheus_notifications_queue_length[5m]) > 1
+  FOR 30m
+  LABELS {
+    service = "prometheus",
+    severity = "warning",
+    spark = "false",
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,    
+  }
+  ANNOTATIONS {
+    summary = "Prometheus instance `{{$labels.instance}}` notifications queue is too high",
+    description = "The Prometheus instance at `{{$labels.instance}}` notifications queue has been too high during the last 30m",
+  }
