@@ -1,0 +1,13 @@
+ALERT RabbitMQServerDown
+  IF min(rabbitmq_up) by(instance) != 1
+  FOR 5m
+  LABELS {
+    service = "rabbitmq",
+    severity = "major",
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "true",
+  }
+  ANNOTATIONS {
+    summary = "Rabbitmq Server instance `{{$labels.instance}}` is down",
+    description = "The RabbitMQ Server instance at `{{$labels.instance}}` has been down the last 5m",
+  }
