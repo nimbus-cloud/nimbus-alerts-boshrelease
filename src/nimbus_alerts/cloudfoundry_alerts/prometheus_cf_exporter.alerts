@@ -1,0 +1,279 @@
+ALERT CFExporterApplicationsScrapeError
+  IF max(cf_last_applications_scrape_error) by(environment, deployment, instance) != 0
+  FOR 30m
+  LABELS {
+    service = "cf",
+    severity = "warning", 
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` Applications scrape error",
+    description = "The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` was unable to scrape Applications metrics during the last 10m",
+  }
+
+ALERT CFExporterApplicationsScrapeTooOld
+  IF (time() - max(cf_last_applications_scrape_timestamp) by(environment, deployment, instance)) > 600
+  FOR 30m
+  LABELS {
+    service = "cf-exporter",
+    severity = "warning", 
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` last Applications scrape > {{humanizeDuration 600}} ago",
+    description = "The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` last scrape for Applications metrics was more than {{humanizeDuration 600}} ago",
+  }
+
+ALERT CFExporterOrganizationsScrapeError
+  IF max(cf_last_organizations_scrape_error) by(environment, deployment, instance) != 0
+  FOR 30m
+  LABELS {
+    service = "cf",
+    severity = "warning", 
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` Organizations scrape error",
+    description = "The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` was unable to scrape Organizations metrics during the last 10m",
+  }
+
+ALERT CFExporterOrganizationsScrapeTooOld
+  IF (time() - max(cf_last_organizations_scrape_timestamp) by(environment, deployment, instance)) > 600
+  FOR 30m
+  LABELS {
+    service = "cf",
+    severity = "warning", 
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` last Organizations scrape > {{humanizeDuration 600}} ago",
+    description = "The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` last scrape for Organizations metrics was more than {{humanizeDuration 600}} ago",
+  }
+
+ALERT CFExporterRoutesScrapeError
+  IF max(cf_last_routes_scrape_error) by(environment, deployment, instance) != 0
+  FOR 30m
+  LABELS {
+    service = "cf",
+    severity = "warning", 
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` Routes scrape error",
+    description = "The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` was unable to scrape Routes metrics during the last 10m",
+  }
+
+ALERT CFExporterRoutesScrapeTooOld
+  IF (time() - max(cf_last_routes_scrape_timestamp) by(environment, deployment, instance)) > 600
+  FOR 30m
+  LABELS {
+    service = "cf",
+    severity = "warning", 
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` last Routes scrape > {{humanizeDuration 600}} ago",
+    description = "The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` last scrape for Routes metrics was more than {{humanizeDuration 600}} ago",
+  }
+
+ALERT CFExporterServicesScrapeError
+  IF max(cf_last_services_scrape_error) by(environment, deployment, instance) != 0
+  FOR 30m
+  LABELS {
+    service = "cf",
+    severity = "warning", 
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` Services scrape error",
+    description = "The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` was unable to scrape Services metrics during the last 10m",
+  }
+
+ALERT CFExporterServicesScrapeTooOld
+  IF (time() - max(cf_last_services_scrape_timestamp) by(environment, deployment, instance)) > 600
+  FOR 30m
+  LABELS {
+    service = "cf",
+    severity = "warning", 
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` last Services scrape > {{humanizeDuration 600}} ago",
+    description = "The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` last scrape for Services metrics was more than {{humanizeDuration 600}} ago",
+  }
+
+ALERT CFExporterServiceBindingsScrapeError
+  IF max(cf_last_service_bindings_scrape_error) by(environment, deployment, instance) != 0
+  FOR 30m
+  LABELS {
+    service = "cf",
+    severity = "warning", 
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` Service Bindings scrape error",
+    description = "The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` was unable to scrape Service Bindings metrics during the last 10m",
+  }
+
+ALERT CFExporterServiceBindingsScrapeTooOld
+  IF (time() - max(cf_last_service_bindings_scrape_timestamp) by(environment, deployment, instance)) > 600
+  FOR 30m
+  LABELS {
+    service = "cf",
+    severity = "warning", 
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` last Service Bindings scrape > {{humanizeDuration 600}}s ago",
+    description = "The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` last scrape for Service Bindings metrics was more than {{humanizeDuration 600}} ago",
+  }
+
+ALERT CFExporterServiceInstancesScrapeError
+  IF max(cf_last_service_instances_scrape_error) by(environment, deployment, instance) != 0
+  FOR 30m
+  LABELS {
+    service = "cf",
+    severity = "warning", 
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` Service Instances scrape error",
+    description = "The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` was unable to scrape Service Instances metrics during the last 10m",
+  }
+
+ALERT CFExporterServiceInstancesScrapeTooOld
+  IF (time() - max(cf_last_service_instances_scrape_timestamp) by(environment, deployment, instance)) > 600
+  FOR 30m
+  LABELS {
+    service = "cf",
+    severity = "warning", 
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` last Service Instances scrape > {{humanizeDuration 600}}s ago",
+    description = "The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` last scrape for Service Instances metrics was more than {{humanizeDuration 600}} ago",
+  }
+
+ALERT CFExporterServicePlansScrapeError
+  IF max(cf_last_service_plans_scrape_error) by(environment, deployment, instance) != 0
+  FOR 30m
+  LABELS {
+    service = "cf",
+    severity = "warning", 
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` Service Plans scrape error",
+    description = "The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` was unable to scrape Service Plans metrics during the last 10m",
+  }
+
+ALERT CFExporterServicePlansScrapeTooOld
+  IF (time() - max(cf_last_service_plans_scrape_timestamp) by(environment, deployment, instance)) > 600
+  FOR 30m
+  LABELS {
+    service = "cf",
+    severity = "warning", 
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` last Service Plans scrape > {{humanizeDuration 600}}s ago",
+    description = "The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` last scrape for Service Plans metrics was more than {{humanizeDuration 600}} ago",
+  }
+
+ALERT CFExporterSpacesScrapeError
+  IF max(cf_last_spaces_scrape_error) by(environment, deployment, instance) != 0
+  FOR 30m
+  LABELS {
+    service = "cf",
+    severity = "warning", 
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` Spaces scrape error",
+    description = "The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` was unable to scrape Spaces metrics during the last 10m",
+  }
+
+ALERT CFExporterSpacesScrapeTooOld
+  IF (time() - max(cf_last_spaces_scrape_timestamp) by(environment, deployment, instance)) > 600
+  FOR 30m
+  LABELS {
+    service = "cf",
+    severity = "warning", 
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` last Spaces scrape > {{humanizeDuration 600}} ago",
+    description = "The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` last scrape for Spaces metrics was more than {{humanizeDuration 600}} ago",
+  }
+
+ALERT CFExporterSecurityGroupsScrapeError
+  IF max(cf_last_security_groups_scrape_error) by(environment, deployment, instance) != 0
+  FOR 30m
+  LABELS {
+    service = "cf",
+    severity = "warning", 
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` Security Groups scrape error",
+    description = "The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` was unable to scrape Security Groups metrics during the last 10m",
+  }
+
+ALERT CFExporterSecurityGroupsScrapeTooOld
+  IF (time() - max(cf_last_security_groups_scrape_timestamp) by(environment, deployment, instance)) > 600
+  FOR 30m
+  LABELS {
+    service = "cf",
+    severity = "warning", 
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` last Security Groups scrape > {{humanizeDuration 600}} ago",
+    description = "The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` last scrape for Security Groups metrics was more than {{humanizeDuration 600}} ago",
+  }
+
+ALERT CFExporterStacksScrapeError
+  IF max(cf_last_stacks_scrape_error) by(environment, deployment, instance) != 0
+  FOR 30m
+  LABELS {
+    service = "cf",
+    severity = "warning", 
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` Stacks scrape error",
+    description = "The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` was unable to scrape Stacks metrics during the last 10m",
+  }
+
+ALERT CFExporterStacksScrapeTooOld
+  IF (time() - max(cf_last_stacks_scrape_timestamp) by(environment, deployment, instance)) > 600
+  FOR 30m
+  LABELS {
+    service = "cf",
+    severity = "warning", 
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` last Stacks scrape > {{humanizeDuration 600}} ago",
+    description = "The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}` last scrape for Stacks metrics was more than {{humanizeDuration 600}} ago",
+  }

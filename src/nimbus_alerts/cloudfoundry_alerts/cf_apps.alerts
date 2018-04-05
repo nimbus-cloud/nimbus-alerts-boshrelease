@@ -1,0 +1,27 @@
+ALERT CFAppCrashed
+  IF sum(cf_application_instances_running{state=~"STARTED"}) by(environment, deployment, organization_name, space_name, application_name) == 0
+  FOR 8h
+  LABELS {
+    service = "cf",
+    severity = "warning", 
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "CF Application `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.organization_name}}/{{$labels.space_name}}/{{$labels.application_name}}` does not have any instance running",
+    description = "CF Application `{{$labels.application_name}}` at environment `{{$labels.environment}}`, deployment `{{$labels.deployment}}`, org `{{$labels.organization_name}}`, and space `{{$labels.space_name}}` has not had any instance running during the last 8h",
+  }
+
+ALERT CFAppUnhealthy
+  IF min(cf_application_instances{state=~"STARTED"} - cf_application_instances_running{state=~"STARTED"}) by(environment, deployment, organization_name, space_name, application_name) > 0
+  FOR 30m
+  LABELS {
+    service = "cf",
+    severity = "warning", 
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "CF Application `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.organization_name}}/{{$labels.space_name}}/{{$labels.application_name}}` is unhealthy",
+    description = "CF Application `{{$labels.application_name}}` at environment `{{$labels.environment}}`, deployment `{{$labels.deployment}}`, org `{{$labels.organization_name}}`, and space `{{$labels.space_name}}` had less instances running than desired during the last 30m",
+  }
