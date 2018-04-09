@@ -1,0 +1,97 @@
+ALERT CFRouterEmitterSyncDurationTooHigh
+  IF max(firehose_value_metric_route_emitter_route_emitter_sync_duration) by(environment, bosh_deployment) / 1000000000 > 10
+  FOR 30m
+  LABELS {
+    service = "cf",
+    severity = "warning", 
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "Diego Router Emitter synch duration at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}` is too high: {{$value}} sec",
+    description = "Diego Router Emitter at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}` had a synch duration of {{$value}} seconds during the last 15m",
+  }
+
+ALERT CFRouterRequestsTooHigh
+  IF avg(irate(firehose_counter_event_gorouter_total_requests_total[5m])) by(environment, bosh_deployment, bosh_job_ip) > 2500
+  FOR 15m
+  LABELS {
+    service = "cf",
+    severity = "warning", 
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "Requests per second at CF Router `{{$labels.environment}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_ip}}` is too high: {{$value}}req/s",
+    description = "CF Router `{{$labels.environment}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_ip}}` has processed {{$value}} requests per second during the last 5m",
+  }
+
+ALERT CFRoutersLatencyTooHigh
+  IF avg(firehose_value_metric_gorouter_latency) by(environment, bosh_deployment) > 100
+  FOR 30m
+  LABELS {
+    service = "cf",
+    severity = "warning", 
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "Router's latency at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}` is too high: {{$value}}ms",
+    description = "The router's latency at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}` has been {{$value}}ms during the last 30m",
+  }
+
+ALERT CFRoutesNotBeingRegistered
+  IF max(firehose_value_metric_gorouter_ms_since_last_registry_update) by(environment, bosh_deployment) / 1000 > 30
+  FOR 10m
+  LABELS {
+    service = "cf",
+    severity = "warning", 
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "Routes at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}` not being registered",
+    description = "Routes at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}` are not being registered to apps correctly. It has been at least {{$value}} seconds since a router received a 'router.register' message from an app",
+  }
+
+ALERT CFRouterBadGatewayTooHigh
+  IF max(irate(firehose_counter_event_gorouter_bad_gateways_total[5m])) by(environment, bosh_deployment) > 100
+  FOR 5m
+  LABELS {
+    service = "cf",
+    severity = "warning", 
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "slack",
+  }
+  ANNOTATIONS {
+    summary = "Bad gateway responses per second at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}` is too high: {{$value}} 5xx res/s",
+    description = "Routers at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}` have been returning {{$value}} bad gateway responses per second during the last 5m",
+  }
+
+ALERT CFRouter5xxResponsesTooHigh
+  IF max(irate(firehose_counter_event_gorouter_responses_5_xx_total[5m])) by(environment, bosh_deployment) > 100
+  FOR 5m
+  LABELS {
+    service = "cf",
+    severity = "warning", 
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "slack",
+  }
+  ANNOTATIONS {
+    summary = "5xx responses per second at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}` is too high: {{$value}} 5xx res/s",
+    description = "Routers at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}` have been returning {{$value}} 5xx responses per second during the last 5m",
+  }
+
+ALERT CFRoutesTooLow
+  IF avg(firehose_value_metric_gorouter_total_routes) by(environment, bosh_deployment) < 5
+  FOR 5m
+  LABELS {
+    service = "cf",
+    severity = "warning", 
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "Number of routes at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}` is too low: {{$value}}",
+    description = "There has been only {{$value}} routes in the routing table at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}` during the last 5m",
+  }

@@ -1,0 +1,41 @@
+ALERT FirehoseExporterSlowConsumer
+  IF max(firehose_slow_consumer_alert) by(environment, instance) != 0
+  FOR 15m
+  LABELS {
+    service = "firehose",
+    severity = "warning", 
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "firehose_exporter `{{$labels.environment}}/{{$labels.instance}}` slow consumer alert",
+    description = "The `firehose_exporter` at `{{$labels.environment}}/{{$labels.instance}}` is reporting a slow consumer alert during the last 5m, consider scaling up the number of `firehose_exporter` instances",
+  }
+
+ALERT FirehoseExporterLastEnvelopeReceivedTooOld
+  IF (time() - max(firehose_last_envelope_received_timestamp) by(environment, instance)) > 600
+  FOR 5m
+  LABELS {
+    service = "firehose",
+    severity = "warning", 
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "firehose_exporter `{{$labels.environment}}/{{$labels.instance}}` last Envelope received > {{humanizeDuration 600}} ago",
+    description = "The `firehose_exporter` at `{{$labels.environment}}/{{$labels.instance}}` last Envelope received was more than {{humanizeDuration 600}} ago",
+  }
+
+ALERT FirehoseExporterLastMetricReceivedTooOld
+  IF (time() - max(firehose_last_metric_received_timestamp) by(environment, instance)) > 600
+  FOR 5m
+  LABELS {
+    service = "firehose",
+    severity = "warning", 
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "firehose_exporter `{{$labels.environment}}/{{$labels.instance}}` last Metric received > {{humanizeDuration 600}} ago",
+    description = "The `firehose_exporter` at `{{$labels.environment}}/{{$labels.instance}}` last Metric received was more than {{humanizeDuration 600}} ago",
+  }
