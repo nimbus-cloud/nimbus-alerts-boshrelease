@@ -8,6 +8,6 @@ ALERT MYSQLQuotaAboutToExhaust
     monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
   }
   ANNOTATIONS {
-    summary = "MYSQL Quota: database used more than 70% of allowed quota, usage: `{{$labels.db_name}}`",
+    summary = "MYSQL Quota: database used more than 70% of allowed quota, usage: {{$value}}, Datbase: `{{$labels.db_name}}`",
     description = "MYSQL database `{{$labels.db_name}}` uses `{{$labels.db_size_mb}}`MB out of `{{$labels.db_max_storage_mb}}`MB quota",
   }
