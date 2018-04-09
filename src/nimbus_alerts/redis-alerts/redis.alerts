@@ -3,7 +3,7 @@ ALERT RedisNoClientsConnected
   FOR 30m
   LABELS {
     service = "redis",
-    severity = "minor", 
+    severity = "major", 
     spark = "true",  
     monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
   }
@@ -18,8 +18,8 @@ ALERT RedisRejectedConnections
   FOR 30m
   LABELS {
     service = "redis",
-    severity = "warning", 
-    spark = "false",  
+    severity = "major", 
+    spark = "true",  
     monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
   }
   ANNOTATIONS {
