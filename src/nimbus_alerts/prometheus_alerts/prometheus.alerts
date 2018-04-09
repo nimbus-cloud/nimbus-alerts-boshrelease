@@ -27,7 +27,7 @@ ALERT PrometheusConfigReloadFailed
   }
 
 ALERT PrometheusSkippingScrapes
-  IF rate(prometheus_target_skipped_scrapes_total[5m]) > 1
+  IF rate(prometheus_target_skipped_scrapes_total[10m]) > 1
   FOR 10m
   LABELS {
     service = "prometheus",
@@ -41,7 +41,7 @@ ALERT PrometheusSkippingScrapes
   }
 
 ALERT PrometheusExceededSampleLimit
-  IF rate(prometheus_target_scrapes_exceeded_sample_limit_total[5m]) > 1
+  IF rate(prometheus_target_scrapes_exceeded_sample_limit_total[10m]) > 1
   FOR 10m
   LABELS {
     service = "prometheus",
@@ -55,7 +55,7 @@ ALERT PrometheusExceededSampleLimit
   }
 
 ALERT PrometheusNotificationsDroppedTooHigh
-  IF rate(prometheus_notifications_dropped_total[5m]) > 1
+  IF rate(prometheus_notifications_dropped_total[10m]) > 1
   FOR 10m
   LABELS {
     service = "prometheus",
@@ -69,7 +69,7 @@ ALERT PrometheusNotificationsDroppedTooHigh
   }
 
 ALERT PrometheusNotificationsQueueTooHigh
-  IF rate(prometheus_notifications_queue_length[5m]) > 1
+  IF rate(prometheus_notifications_queue_length[10m]) > 1
   FOR 30m
   LABELS {
     service = "prometheus",
