@@ -1,10 +1,10 @@
 ALERT PostgresExporterScrapeError
   IF max(pg_exporter_last_scrape_error) by(instance) != 0
-  FOR 10m
+  FOR 30m
   LABELS {
     service = "postgres-exporter",
-    severity = "minor",
-    spark = "true",
+    severity = "warning",
+    spark = "false",
     monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
   }
   ANNOTATIONS {

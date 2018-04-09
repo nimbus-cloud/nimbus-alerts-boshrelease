@@ -1,10 +1,10 @@
 ALERT BOSHExporterScrapeError
   IF max(bosh_last_scrape_error) by(environment, bosh_name, instance) != 0
-  FOR 10m
+  FOR 30m
   LABELS {
     service = "bosh-exporter",
-    severity = "major",
-    spark = "true",
+    severity = "warning",
+    spark = "false",
     monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
   }
   ANNOTATIONS {
@@ -18,7 +18,7 @@ ALERT BOSHExporterScrapeTooOld
   LABELS {
     service = "bosh-exporter",
     severity = "warning",
-    spark = "true",
+    spark = "false",
     monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
   }
   ANNOTATIONS {
@@ -31,8 +31,8 @@ ALERT PrometheusScrapeError
   FOR <%= p('prometheus_alerts.scrape_error.evaluation_time') %>
   LABELS {
     service = "prometheus",
-    severity = "major",
-    spark = "true",
+    severity = "warning",
+    spark = "false",
     monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
   }
   ANNOTATIONS {

@@ -17,8 +17,8 @@ ALERT BOSHJobLowFreeRAM
   FOR 10m
   LABELS {
     service = "bosh-job",
-    severity = "minor",
-    spark = "true",
+    severity = "warning",
+    spark = "false",
     monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
   }
   ANNOTATIONS {
@@ -31,8 +31,8 @@ ALERT BOSHJobLowSwap
   FOR 10m
   LABELS {
     service = "bosh-job",
-    severity = "minor",
-    spark = "true",
+    severity = "warning",
+    spark = "false",
     monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
   }
   ANNOTATIONS {
@@ -41,11 +41,11 @@ ALERT BOSHJobLowSwap
   }
 
 ALERT BOSHJobSystemDiskFull
-  IF avg(bosh_job_system_disk_percent{bosh_job_name!~"^compilation.*"}) by(environment, bosh_name, bosh_deployment, bosh_job_name, bosh_job_index) > 92
+  IF avg(bosh_job_system_disk_percent{bosh_job_name!~"^compilation.*"}) by(environment, bosh_name, bosh_deployment, bosh_job_name, bosh_job_index) > 80
   FOR 30m
   LABELS {
     service = "bosh-job",
-    severity = "major",
+    severity = "minor",
     spark = "true",
     monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
   }
@@ -55,12 +55,12 @@ ALERT BOSHJobSystemDiskFull
   }
 
 ALERT BOSHJobSystemDiskFullSlack
-  IF avg(bosh_job_system_disk_percent{bosh_job_name!~"^compilation.*"}) by(environment, bosh_name, bosh_deployment, bosh_job_name, bosh_job_index) > 82
+  IF avg(bosh_job_system_disk_percent{bosh_job_name!~"^compilation.*"}) by(environment, bosh_name, bosh_deployment, bosh_job_name, bosh_job_index) > 70
   FOR 30m
   LABELS {
     service = "bosh-job",
-    severity = "warning",
-    spark = "false",
+    severity = "minor",
+    spark = "true",
     monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
   }
   ANNOTATIONS {
@@ -69,11 +69,11 @@ ALERT BOSHJobSystemDiskFullSlack
   }
 
 ALERT BOSHJobEphemeralDiskFull
-  IF avg(bosh_job_ephemeral_disk_percent{bosh_job_name!~"^compilation.*"}) by(environment, bosh_name, bosh_deployment, bosh_job_name, bosh_job_index) > 90
+  IF avg(bosh_job_ephemeral_disk_percent{bosh_job_name!~"^compilation.*"}) by(environment, bosh_name, bosh_deployment, bosh_job_name, bosh_job_index) > 80
   FOR 30m
   LABELS {
     service = "bosh-job",
-    severity = "major,
+    severity = "minor",
     spark = "true",
     monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
   }
@@ -83,7 +83,7 @@ ALERT BOSHJobEphemeralDiskFull
   }
 
 ALERT BOSHJobEphemeralDiskFullSlack
-  IF avg(bosh_job_ephemeral_disk_percent{bosh_job_name!~"^compilation.*"}) by(environment, bosh_name, bosh_deployment, bosh_job_name, bosh_job_index) > 80
+  IF avg(bosh_job_ephemeral_disk_percent{bosh_job_name!~"^compilation.*"}) by(environment, bosh_name, bosh_deployment, bosh_job_name, bosh_job_index) > 70
   FOR 30m
   LABELS {
     service = "bosh-job",
@@ -97,11 +97,11 @@ ALERT BOSHJobEphemeralDiskFullSlack
   }
 
 ALERT BOSHJobPersistentDiskFull
-  IF avg(bosh_job_persistent_disk_percent{bosh_job_name!~"^compilation.*"}) by(environment, bosh_name, bosh_deployment, bosh_job_name, bosh_job_index) > 92
+  IF avg(bosh_job_persistent_disk_percent{bosh_job_name!~"^compilation.*"}) by(environment, bosh_name, bosh_deployment, bosh_job_name, bosh_job_index) > 80
   FOR 30m
   LABELS {
     service = "bosh-job",
-    severity = "major",
+    severity = "minor",
     spark = "true",
     monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
   }
@@ -111,7 +111,7 @@ ALERT BOSHJobPersistentDiskFull
   }
 
 ALERT BOSHJobPersistentDiskFullSlack
-  IF avg(bosh_job_persistent_disk_percent{bosh_job_name!~"^compilation.*"}) by(environment, bosh_name, bosh_deployment, bosh_job_name, bosh_job_index) > 82
+  IF avg(bosh_job_persistent_disk_percent{bosh_job_name!~"^compilation.*"}) by(environment, bosh_name, bosh_deployment, bosh_job_name, bosh_job_index) > 70
   FOR 30m
   LABELS {
     service = "bosh-job",
