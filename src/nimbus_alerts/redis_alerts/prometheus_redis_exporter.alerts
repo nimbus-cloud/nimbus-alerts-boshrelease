@@ -1,0 +1,13 @@
+ALERT RedisExporterScrapeError
+  IF max(redis_exporter_last_scrape_error) by(instance) != 0
+  FOR 30m
+  LABELS {
+    service = "redis-exporter",
+    severity = "warning", 
+    spark = "false",  
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+  }
+  ANNOTATIONS {
+    summary = "redis_exporter `{{$labels.instance}}` scrape error",
+    description = "The `redis_exporter` at `{{$labels.instance}}` was unable to scrape metrics during the last 10m",
+  }
