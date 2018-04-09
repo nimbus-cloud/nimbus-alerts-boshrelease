@@ -32,8 +32,8 @@ ALERT RedisHighMemoryFragmentation
   FOR 30m
   LABELS {
     service = "redis",
-    severity = "warning", 
-    spark = "false",  
+    severity = "major", 
+    spark = "true",  
     monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
   }
   ANNOTATIONS {
