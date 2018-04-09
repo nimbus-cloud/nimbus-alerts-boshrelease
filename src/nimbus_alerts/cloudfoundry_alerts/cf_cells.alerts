@@ -42,13 +42,13 @@ ALERT CFCellsMaxAvailableMemoryTooLow
   }
 
 ALERT CFCellsOverallAvailableDiskTooLow
-  IF (sum(avg(firehose_value_metric_rep_capacity_remaining_disk) by(environment, bosh_deployment, bosh_job_name, bosh_job_id)) by(environment, bosh_deployment) / sum(avg(firehose_value_metric_rep_capacity_total_disk) by(environment, bosh_deployment, bosh_job_name, bosh_job_id)) by(environment, bosh_deployment)) * 100 < 25
+  IF (sum(avg(firehose_value_metric_rep_capacity_remaining_disk) by(environment, bosh_deployment, bosh_job_name, bosh_job_id)) by(environment, bosh_deployment) / sum(avg(firehose_value_metric_rep_capacity_total_disk) by(environment, bosh_deployment, bosh_job_name, bosh_job_id)) by(environment, bosh_deployment)) * 100 < 20
   FOR 15m
   LABELS {
     service = "cf",
-    severity = "warning", 
+    severity = "minor", 
     monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
-    spark = "false",
+    spark = "true",
   }
   ANNOTATIONS {
     summary = "CF `{{$labels.environment}}/{{$labels.bosh_deployment}}` overall available disk too low: {{$value}}%",
@@ -88,9 +88,9 @@ ALERT CFCellsMaxAvailableContainersTooLow
   FOR 15m
   LABELS {
     service = "cf",
-    severity = "warning", 
+    severity = "minor", 
     monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
-    spark = "false",
+    spark = "true",
   }
   ANNOTATIONS {
     summary = "CF `{{$labels.environment}}/{{$labels.bosh_deployment}}` cell with max available containers is too low: {{$value}}",

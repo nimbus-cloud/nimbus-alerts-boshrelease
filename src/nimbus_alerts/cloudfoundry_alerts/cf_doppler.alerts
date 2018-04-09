@@ -3,9 +3,9 @@ ALERT CFFirehoseDroppedMessagesTooHigh
   FOR 5m
   LABELS {
     service = "cf",
-    severity = "minor", 
+    severity = "warning", 
     monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
-    spark = "true",
+    spark = "false",
   }
   ANNOTATIONS {
     summary = "Firehose at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}` is dropping messages at a high rate: ${{value}} msgs/sec",

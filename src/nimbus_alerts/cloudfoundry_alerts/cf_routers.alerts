@@ -59,9 +59,9 @@ ALERT CFRouterBadGatewayTooHigh
   FOR 5m
   LABELS {
     service = "cf",
-    severity = "minor", 
+    severity = "warning", 
     monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
-    spark = "true",
+    spark = "slack",
   }
   ANNOTATIONS {
     summary = "Bad gateway responses per second at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}` is too high: {{$value}} 5xx res/s",
@@ -73,9 +73,9 @@ ALERT CFRouter5xxResponsesTooHigh
   FOR 5m
   LABELS {
     service = "cf",
-    severity = "minor", 
+    severity = "warning", 
     monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
-    spark = "true",
+    spark = "slack",
   }
   ANNOTATIONS {
     summary = "5xx responses per second at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}` is too high: {{$value}} 5xx res/s",
