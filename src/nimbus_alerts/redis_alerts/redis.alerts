@@ -7,7 +7,6 @@ ALERT RedisNoClientsConnected
     spark = "true",  
     monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
   }
-  }
   ANNOTATIONS {
     summary = "Redis instance `{{$labels.addr}} < 1 clients connected",
     description = "The Redis instance at `{{$labels.addr}}` had less than 1 clients connected during the last 30m",
