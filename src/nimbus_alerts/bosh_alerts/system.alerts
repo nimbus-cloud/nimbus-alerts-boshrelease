@@ -87,7 +87,7 @@ ALERT BOSHJobEphemeralDiskFullSlack
   FOR 30m
   LABELS {
     service = "bosh-job",
-    severity = "warning,
+    severity = "warning",
     spark = "false",
     monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
   }
