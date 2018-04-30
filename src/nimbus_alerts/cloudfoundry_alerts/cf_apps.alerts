@@ -4,7 +4,7 @@ ALERT CFAppCrashed
   LABELS {
     service = "cf",
     severity = "warning", 
-    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    monitored_item = `{{$labels.organization_name}}/{{$labels.space_name}}/{{$labels.application_name}}`,
     spark = "false",
   }
   ANNOTATIONS {
@@ -18,7 +18,7 @@ ALERT CFAppUnhealthy
   LABELS {
     service = "cf",
     severity = "warning", 
-    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    monitored_item = `{{$labels.organization_name}}/{{$labels.space_name}}/{{$labels.application_name}}`,
     spark = "false",
   }
   ANNOTATIONS {

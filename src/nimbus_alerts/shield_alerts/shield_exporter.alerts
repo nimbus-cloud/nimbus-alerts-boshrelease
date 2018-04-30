@@ -5,7 +5,7 @@ ALERT SHIELDBackupFailed
     service = "shield",
     severity = "minor", 
     spark = "true",  
-    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    monitored_item = `{{$labels.job_name}}`,
   }
   ANNOTATIONS {
     summary = "SHIELD: Backup task failed",
