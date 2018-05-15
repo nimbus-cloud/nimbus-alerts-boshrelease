@@ -3,8 +3,8 @@ ALERT BOSHJobHighCPULoad
   FOR 20m
   LABELS {
     service = "bosh-job",
-    severity = "major",
-    spark = "true",
+    severity = "warning",
+    spark = "false",
     monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
   }
   ANNOTATIONS {
