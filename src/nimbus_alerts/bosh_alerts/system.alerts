@@ -1,6 +1,6 @@
 ALERT BOSHJobHighCPULoad
   IF avg(bosh_job_load_avg01{bosh_job_name!~"^compilation.*"}) by(environment, bosh_name, bosh_deployment, bosh_job_name, bosh_job_index) > 5
-  FOR 20m
+  FOR 1h
   LABELS {
     service = "bosh-job",
     severity = "warning",

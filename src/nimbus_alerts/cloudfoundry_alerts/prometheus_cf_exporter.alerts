@@ -1,6 +1,6 @@
 ALERT CFExporterApplicationsScrapeError
   IF max(cf_last_applications_scrape_error) by(environment, deployment, instance) != 0
-  FOR 30m
+  FOR 3h
   LABELS {
     service = "cf",
     severity = "warning", 
@@ -14,7 +14,7 @@ ALERT CFExporterApplicationsScrapeError
 
 ALERT CFExporterApplicationsScrapeTooOld
   IF (time() - max(cf_last_applications_scrape_timestamp) by(environment, deployment, instance)) > 600
-  FOR 30m
+  FOR 3h
   LABELS {
     service = "cf-exporter",
     severity = "warning", 
@@ -28,7 +28,7 @@ ALERT CFExporterApplicationsScrapeTooOld
 
 ALERT CFExporterOrganizationsScrapeError
   IF max(cf_last_organizations_scrape_error) by(environment, deployment, instance) != 0
-  FOR 30m
+  FOR 3h
   LABELS {
     service = "cf",
     severity = "warning", 
@@ -42,7 +42,7 @@ ALERT CFExporterOrganizationsScrapeError
 
 ALERT CFExporterOrganizationsScrapeTooOld
   IF (time() - max(cf_last_organizations_scrape_timestamp) by(environment, deployment, instance)) > 600
-  FOR 30m
+  FOR 3h
   LABELS {
     service = "cf",
     severity = "warning", 
@@ -56,7 +56,7 @@ ALERT CFExporterOrganizationsScrapeTooOld
 
 ALERT CFExporterRoutesScrapeError
   IF max(cf_last_routes_scrape_error) by(environment, deployment, instance) != 0
-  FOR 30m
+  FOR 3h
   LABELS {
     service = "cf",
     severity = "warning", 
@@ -70,7 +70,7 @@ ALERT CFExporterRoutesScrapeError
 
 ALERT CFExporterRoutesScrapeTooOld
   IF (time() - max(cf_last_routes_scrape_timestamp) by(environment, deployment, instance)) > 600
-  FOR 30m
+  FOR 3h
   LABELS {
     service = "cf",
     severity = "warning", 
@@ -84,7 +84,7 @@ ALERT CFExporterRoutesScrapeTooOld
 
 ALERT CFExporterServicesScrapeError
   IF max(cf_last_services_scrape_error) by(environment, deployment, instance) != 0
-  FOR 30m
+  FOR 3h
   LABELS {
     service = "cf",
     severity = "warning", 
@@ -98,7 +98,7 @@ ALERT CFExporterServicesScrapeError
 
 ALERT CFExporterServicesScrapeTooOld
   IF (time() - max(cf_last_services_scrape_timestamp) by(environment, deployment, instance)) > 600
-  FOR 30m
+  FOR 3h
   LABELS {
     service = "cf",
     severity = "warning", 
@@ -112,7 +112,7 @@ ALERT CFExporterServicesScrapeTooOld
 
 ALERT CFExporterServiceBindingsScrapeError
   IF max(cf_last_service_bindings_scrape_error) by(environment, deployment, instance) != 0
-  FOR 30m
+  FOR 3h
   LABELS {
     service = "cf",
     severity = "warning", 
@@ -126,7 +126,7 @@ ALERT CFExporterServiceBindingsScrapeError
 
 ALERT CFExporterServiceBindingsScrapeTooOld
   IF (time() - max(cf_last_service_bindings_scrape_timestamp) by(environment, deployment, instance)) > 600
-  FOR 30m
+  FOR 3h
   LABELS {
     service = "cf",
     severity = "warning", 
@@ -140,7 +140,7 @@ ALERT CFExporterServiceBindingsScrapeTooOld
 
 ALERT CFExporterServiceInstancesScrapeError
   IF max(cf_last_service_instances_scrape_error) by(environment, deployment, instance) != 0
-  FOR 30m
+  FOR 3h
   LABELS {
     service = "cf",
     severity = "warning", 
@@ -154,7 +154,7 @@ ALERT CFExporterServiceInstancesScrapeError
 
 ALERT CFExporterServiceInstancesScrapeTooOld
   IF (time() - max(cf_last_service_instances_scrape_timestamp) by(environment, deployment, instance)) > 600
-  FOR 30m
+  FOR 3h
   LABELS {
     service = "cf",
     severity = "warning", 
@@ -168,7 +168,7 @@ ALERT CFExporterServiceInstancesScrapeTooOld
 
 ALERT CFExporterServicePlansScrapeError
   IF max(cf_last_service_plans_scrape_error) by(environment, deployment, instance) != 0
-  FOR 30m
+  FOR 3h
   LABELS {
     service = "cf",
     severity = "warning", 
@@ -182,7 +182,7 @@ ALERT CFExporterServicePlansScrapeError
 
 ALERT CFExporterServicePlansScrapeTooOld
   IF (time() - max(cf_last_service_plans_scrape_timestamp) by(environment, deployment, instance)) > 600
-  FOR 30m
+  FOR 3h
   LABELS {
     service = "cf",
     severity = "warning", 
@@ -196,7 +196,7 @@ ALERT CFExporterServicePlansScrapeTooOld
 
 ALERT CFExporterSpacesScrapeError
   IF max(cf_last_spaces_scrape_error) by(environment, deployment, instance) != 0
-  FOR 30m
+  FOR 3h
   LABELS {
     service = "cf",
     severity = "warning", 
@@ -210,7 +210,7 @@ ALERT CFExporterSpacesScrapeError
 
 ALERT CFExporterSpacesScrapeTooOld
   IF (time() - max(cf_last_spaces_scrape_timestamp) by(environment, deployment, instance)) > 600
-  FOR 30m
+  FOR 3h
   LABELS {
     service = "cf",
     severity = "warning", 
@@ -224,7 +224,7 @@ ALERT CFExporterSpacesScrapeTooOld
 
 ALERT CFExporterSecurityGroupsScrapeError
   IF max(cf_last_security_groups_scrape_error) by(environment, deployment, instance) != 0
-  FOR 30m
+  FOR 3h
   LABELS {
     service = "cf",
     severity = "warning", 
@@ -238,7 +238,7 @@ ALERT CFExporterSecurityGroupsScrapeError
 
 ALERT CFExporterSecurityGroupsScrapeTooOld
   IF (time() - max(cf_last_security_groups_scrape_timestamp) by(environment, deployment, instance)) > 600
-  FOR 30m
+  FOR 3h
   LABELS {
     service = "cf",
     severity = "warning", 
@@ -252,7 +252,7 @@ ALERT CFExporterSecurityGroupsScrapeTooOld
 
 ALERT CFExporterStacksScrapeError
   IF max(cf_last_stacks_scrape_error) by(environment, deployment, instance) != 0
-  FOR 30m
+  FOR 3h
   LABELS {
     service = "cf",
     severity = "warning", 
@@ -266,7 +266,7 @@ ALERT CFExporterStacksScrapeError
 
 ALERT CFExporterStacksScrapeTooOld
   IF (time() - max(cf_last_stacks_scrape_timestamp) by(environment, deployment, instance)) > 600
-  FOR 30m
+  FOR 3h
   LABELS {
     service = "cf",
     severity = "warning", 

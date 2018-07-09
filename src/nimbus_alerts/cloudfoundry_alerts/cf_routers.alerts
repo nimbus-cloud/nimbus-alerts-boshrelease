@@ -28,7 +28,7 @@ ALERT CFRouterRequestsTooHigh
 
 ALERT CFRoutersLatencyTooHigh
   IF avg(firehose_value_metric_gorouter_latency) by(environment, bosh_deployment) > 100
-  FOR 30m
+  FOR 2h
   LABELS {
     service = "cf",
     severity = "warning", 
