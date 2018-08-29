@@ -1,6 +1,6 @@
 ALERT PrometheusScrapeError
   IF up == 0
-  FOR 15m
+  FOR 45m
   LABELS {
     service = "prometheus",
     severity = "warning",
@@ -9,7 +9,7 @@ ALERT PrometheusScrapeError
   }
   ANNOTATIONS {
     summary = "Prometheus instance `{{$labels.instance}}` (scrape job `{{$labels.job}}`) down or not reachable",
-    description = "The Prometheus instance at `{{$labels.instance}}` for scrape job `{{$labels.job}}` has been down or has not been reachable during the last 15m",
+    description = "The Prometheus instance at `{{$labels.instance}}` for scrape job `{{$labels.job}}` has been down or has not been reachable during the last 45m",
   }
 
 ALERT PrometheusConfigReloadFailed

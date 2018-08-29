@@ -28,7 +28,7 @@ ALERT FirehoseExporterLastEnvelopeReceivedTooOld
 
 ALERT FirehoseExporterLastMetricReceivedTooOld
   IF (time() - max(firehose_last_metric_received_timestamp) by(environment, instance)) > 600
-  FOR 5m
+  FOR 45m
   LABELS {
     service = "firehose",
     severity = "warning", 
@@ -36,6 +36,6 @@ ALERT FirehoseExporterLastMetricReceivedTooOld
     spark = "false",
   }
   ANNOTATIONS {
-    summary = "firehose_exporter `{{$labels.environment}}/{{$labels.instance}}` last Metric received > {{humanizeDuration 600}} ago",
-    description = "The `firehose_exporter` at `{{$labels.environment}}/{{$labels.instance}}` last Metric received was more than {{humanizeDuration 600}} ago",
+    summary = "firehose_exporter `{{$labels.environment}}/{{$labels.instance}}` last Metric received > 45m ago",
+    description = "The `firehose_exporter` at `{{$labels.environment}}/{{$labels.instance}}` last Metric received was more than 45m ago",
   }
