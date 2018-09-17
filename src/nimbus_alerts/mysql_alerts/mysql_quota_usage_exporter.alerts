@@ -5,7 +5,7 @@ ALERT MYSQLQuotaAboutToExhaust
     service = "mysql-quota",
     severity = "minor",
     spark = "true",
-    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    monitored_item = `mysql-database/{{$labels.db_name}}`,
   }
   ANNOTATIONS {
     summary = "MYSQL Quota: database used more than 70% of allowed quota, usage: {{$value}}, Datbase: `{{$labels.db_name}}`",
