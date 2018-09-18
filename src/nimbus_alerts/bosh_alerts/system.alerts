@@ -9,7 +9,7 @@ ALERT BOSHJobHighCPULoad
   }
   ANNOTATIONS {
     summary = "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` is reporting a high CPU load average",
-    description = "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` had a CPU load average (1m) above 5 for 40m: {{$value}}",
+    description = "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` had a CPU load average (1m) above 5 for 60m: {{$value}}",
   }
 
 ALERT BOSHJobLowFreeRAM
