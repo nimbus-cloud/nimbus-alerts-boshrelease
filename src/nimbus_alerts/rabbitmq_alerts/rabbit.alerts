@@ -5,7 +5,7 @@ ALERT RabbitMQServerDown
     service = "rabbitmq",
     severity = "major",
     monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
-    spark = "true",
+    spark = "false",
   }
   ANNOTATIONS {
     summary = "Rabbitmq Server instance `{{$labels.instance}}` is down",
@@ -19,11 +19,11 @@ ALERT SCMSRabbitMQMemAlarn
   LABELS {
     service = "rabbitmq",
     severity = "warning",
-    monitored_item = `{{$labels.bosh_job_name}}`,
+    monitored_item = `{{$labels.bosh_job_name}} - {{$value}}`,
     spark = "false",
   }
   ANNOTATIONS {
-    summary = "Rabbitmq Server instance `{{$labels.instance}}` has high memory",
+    summary = "Rabbitmq Server instance `{{$labels.instance}}` has high memory - {{$value}}",
     description = "The RabbitMQ Server instance at `{{$labels.instance}}` has locked due to high memory",
   }
 
@@ -47,7 +47,7 @@ ALERT SCMSRabbitMQMemHigh
   LABELS {
     service = "rabbitmq",
     severity = "warning",
-    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}} - {{$value}} `,
     spark = "false",
   }
   ANNOTATIONS {
@@ -62,7 +62,7 @@ ALERT SCMSRabbitMQMemoryHigh
   LABELS {
     service = "rabbitmq",
     severity = "scms",
-    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}} - {{$value}}`,
     spark = "false",
   }
   ANNOTATIONS {
@@ -76,7 +76,7 @@ ALERT SCMSRabbitMQCPUHigh
   LABELS {
     service = "rabbitmq",
     severity = "scms",
-    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    monitored_item = `{{$labels.bosh_job_name}} - {{$value}}`,
     spark = "false",
   }
   ANNOTATIONS {
@@ -91,7 +91,7 @@ ALERT SCMSRabbitMQCPUHigh
   LABELS {
     service = "rabbitmq",
     severity = "scms",
-    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    monitored_item = `{{$labels.bosh_job_name}} - {{$value}}`,
     spark = "false",
   }
   ANNOTATIONS {
