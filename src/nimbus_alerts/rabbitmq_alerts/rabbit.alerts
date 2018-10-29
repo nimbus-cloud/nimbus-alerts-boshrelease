@@ -14,7 +14,7 @@ ALERT RabbitMQServerDown
 
 
 ALERT SCMSRabbitMQMemAlarn
-  IF rabbitmq_node_mem_alarm != 1
+  IF rabbitmq_node_mem_alarm != 0
   FOR 5m
   LABELS {
     service = "rabbitmq",
@@ -28,7 +28,7 @@ ALERT SCMSRabbitMQMemAlarn
   }
 
 ALERT SCMSRabbitMQMemAlarn
-  IF rabbitmq_node_mem_alarm != 1
+  IF rabbitmq_node_mem_alarm != 0
   FOR 5m
   LABELS {
     service = "rabbitmq",
