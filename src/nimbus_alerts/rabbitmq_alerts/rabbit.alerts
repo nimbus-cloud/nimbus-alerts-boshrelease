@@ -11,3 +11,91 @@ ALERT RabbitMQServerDown
     summary = "Rabbitmq Server instance `{{$labels.instance}}` is down",
     description = "The RabbitMQ Server instance at `{{$labels.instance}}` has been down the last 5m",
   }
+
+
+ALERT SCMSRabbitMQMemAlarn
+  IF rabbitmq_node_mem_alarm != 1
+  FOR 5m
+  LABELS {
+    service = "rabbitmq",
+    severity = "warning",
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "Rabbitmq Server instance `{{$labels.instance}}` is down",
+    description = "The RabbitMQ Server instance at `{{$labels.instance}}` has been down the last 5m",
+  }
+
+ALERT SCMSRabbitMQMemAlarn
+  IF rabbitmq_node_mem_alarm != 1
+  FOR 5m
+  LABELS {
+    service = "rabbitmq",
+    severity = "scms",
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "Rabbitmq Server instance `{{$labels.instance}}` is down",
+    description = "The RabbitMQ Server instance at `{{$labels.instance}}` has been down the last 5m",
+  }
+
+ALERT SCMSRabbitMQMemHigh
+  IF rabbitmq_node_mem_limit * 0.3 - rabbitmq_node_mem_used < 0
+  FOR 5m
+  LABELS {
+    service = "rabbitmq",
+    severity = "warning",
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "Rabbitmq Server instance `{{$labels.instance}}` is down",
+    description = "The RabbitMQ Server instance at `{{$labels.instance}}` has been down the last 5m",
+  }
+
+
+ALERT SCMSRabbitMQMemoryHigh
+  IF rabbitmq_node_mem_limit * 0.3 - rabbitmq_node_mem_used < 0
+  FOR 5m
+  LABELS {
+    service = "rabbitmq",
+    severity = "scms",
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "Rabbitmq Server instance `{{$labels.instance}}` is down",
+    description = "The RabbitMQ Server instance at `{{$labels.instance}}` has been down the last 5m",
+  }
+
+ALERT SCMSRabbitMQCPUHigh
+  IF rabbitmq_node_mem_limit * 0.3 - rabbitmq_node_mem_used < 0
+  FOR 5m
+  LABELS {
+    service = "rabbitmq",
+    severity = "scms",
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "Rabbitmq Server instance `{{$labels.instance}}` is down",
+    description = "The RabbitMQ Server instance at `{{$labels.instance}}` has been down the last 5m",
+  }
+
+
+ALERT SCMSRabbitMQCPUHigh
+  IF bosh_job_load_avg05{bosh_deployment="rabbitmq"} > 5
+  FOR 5m
+  LABELS {
+    service = "rabbitmq",
+    severity = "scms",
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "Rabbitmq Server instance `{{$labels.instance}}` is down",
+    description = "The RabbitMQ Server instance at `{{$labels.instance}}` has been down the last 5m",
+  }  
+
