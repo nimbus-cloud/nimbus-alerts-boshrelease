@@ -67,7 +67,7 @@ ALERT SCMSRabbitMQMemoryHigh
   }
   ANNOTATIONS {
     summary = "Rabbitmq Server instance `{{$labels.instance}}` is down",
-    description = "The RabbitMQ Server instance at `{{$labels.instance}}` has high memory for the last 5m",
+    description = "The RabbitMQ Server instance at `{{$labels.instance}}` has high memory for the last 5m - {{$value}}",
   }
 
 ALERT SCMSRabbitMQCPUHigh
