@@ -67,7 +67,7 @@ ALERT SCMSRabbitMQMemoryHigh
   }
   ANNOTATIONS {
     summary = "Rabbitmq Server instance `{{$labels.instance}}` is down",
-    description = "The RabbitMQ Server instance at `{{$labels.instance}}` has high memory for the last 5m - {{$value}}",
+    description = "The RabbitMQ Server instance at `{{$labels.instance}}` has high memory for the last 5m",
   }
 
 ALERT SCMSRabbitMQCPUHigh
@@ -81,7 +81,7 @@ ALERT SCMSRabbitMQCPUHigh
   }
   ANNOTATIONS {
     summary = "Rabbitmq Server instance `{{$labels.instance}}` has high CPU - {{$value}}",
-    description = "The RabbitMQ Server instance at `{{$labels.instance}}` has high CPU",
+    description = "The RabbitMQ Server instance at `{{$labels.instance}}` has high CPU - {{$value}}",
   }
 
 
@@ -96,6 +96,6 @@ ALERT SCMSRabbitMQCPUHigh
   }
   ANNOTATIONS {
     summary = "Rabbitmq Server instance `{{$labels.instance}}` has high CPU - {{$value}}",
-    description = "The RabbitMQ Server instance at `{{$labels.instance}}` has high CPU",
+    description = "The RabbitMQ Server instance at `{{$labels.instance}}` has high CPU - {{$value}}",
   }  
 
