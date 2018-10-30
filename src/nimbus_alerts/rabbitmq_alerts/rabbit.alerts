@@ -19,11 +19,11 @@ ALERT SCMSRabbitMQMemAlarn
   LABELS {
     service = "rabbitmq",
     severity = "warning",
-    monitored_item = `{{$labels.bosh_job_name}} - {{$value}}`,
+    monitored_item = `{{$labels.bosh_job_name}}`,
     spark = "false",
   }
   ANNOTATIONS {
-    summary = "Rabbitmq Server instance `{{$labels.instance}}` has high memory - {{$value}}",
+    summary = "Rabbitmq Server instance `{{$labels.instance}}` has locked",
     description = "The RabbitMQ Server instance at `{{$labels.instance}}` has locked due to high memory",
   }
 
@@ -37,7 +37,7 @@ ALERT SCMSRabbitMQMemAlarn
     spark = "false",
   }
   ANNOTATIONS {
-    summary = "Rabbitmq Server instance `{{$labels.instance}}` is down",
+    summary = "Rabbitmq Server instance `{{$labels.instance}}` has locked",
     description = "The RabbitMQ Server instance at `{{$labels.instance}}` has locked due to high memory",
   }
 
@@ -47,7 +47,7 @@ ALERT SCMSRabbitMQMemHigh
   LABELS {
     service = "rabbitmq",
     severity = "warning",
-    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}} - {{$value}} `,
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
     spark = "false",
   }
   ANNOTATIONS {
@@ -62,7 +62,7 @@ ALERT SCMSRabbitMQMemoryHigh
   LABELS {
     service = "rabbitmq",
     severity = "scms",
-    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}} - {{$value}}`,
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
     spark = "false",
   }
   ANNOTATIONS {
@@ -76,11 +76,11 @@ ALERT SCMSRabbitMQCPUHigh
   LABELS {
     service = "rabbitmq",
     severity = "scms",
-    monitored_item = `{{$labels.bosh_job_name}} - {{$value}}`,
+    monitored_item = `{{$labels.bosh_job_name}}`,
     spark = "false",
   }
   ANNOTATIONS {
-    summary = "Rabbitmq Server instance `{{$labels.instance}}` is down",
+    summary = "Rabbitmq Server instance `{{$labels.instance}}` has high CPU - {{$value}}",
     description = "The RabbitMQ Server instance at `{{$labels.instance}}` has high CPU",
   }
 
@@ -91,11 +91,11 @@ ALERT SCMSRabbitMQCPUHigh
   LABELS {
     service = "rabbitmq",
     severity = "scms",
-    monitored_item = `{{$labels.bosh_job_name}} - {{$value}}`,
+    monitored_item = `{{$labels.bosh_job_name}}`,
     spark = "false",
   }
   ANNOTATIONS {
-    summary = "Rabbitmq Server instance `{{$labels.instance}}` is down",
+    summary = "Rabbitmq Server instance `{{$labels.instance}}` has high CPU - {{$value}}",
     description = "The RabbitMQ Server instance at `{{$labels.instance}}` has high CPU",
   }  
 
