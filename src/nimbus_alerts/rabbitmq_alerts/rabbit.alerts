@@ -5,20 +5,47 @@ ALERT RabbitMQServerDown
     service = "rabbitmq",
     severity = "major",
     monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
-    spark = "false",
+    spark = "true",
   }
   ANNOTATIONS {
     summary = "Rabbitmq Server instance `{{$labels.instance}}` is down",
     description = "The RabbitMQ Server instance at `{{$labels.instance}}` has been down the last 5m",
   }
 
-
-ALERT SCMSRabbitMQMemAlarn
+ALERT SCMSRabbitMQMemAlarnCallout
   IF rabbitmq_node_mem_alarm != 0
   FOR 5m
   LABELS {
     service = "rabbitmq",
-    severity = "warning",
+    severity = "scms_callout",
+    monitored_item = `{{$labels.bosh_job_name}}`,
+    spark = "true",
+  }
+  ANNOTATIONS {
+    summary = "Rabbitmq Server instance `{{$labels.instance}}` has locked",
+    description = "The RabbitMQ Server instance at `{{$labels.instance}}` has locked due to high memory",
+  }
+
+ALERT RabbitMQMemAlarn
+  IF rabbitmq_node_mem_alarm != 0
+  FOR 5m
+  LABELS {
+    service = "rabbitmq",
+    severity = "major",
+    monitored_item = `{{$labels.bosh_job_name}}`,
+    spark = "true",
+  }
+  ANNOTATIONS {
+    summary = "Rabbitmq Server instance `{{$labels.instance}}` has locked",
+    description = "The RabbitMQ Server instance at `{{$labels.instance}}` has locked due to high memory",
+  }
+
+ALERT SCMSRabbitMQMemAlarnSlack
+  IF rabbitmq_node_mem_alarm != 0
+  FOR 5m
+  LABELS {
+    service = "rabbitmq",
+    severity = "scms",
     monitored_item = `{{$labels.bosh_job_name}}`,
     spark = "false",
   }
@@ -27,28 +54,14 @@ ALERT SCMSRabbitMQMemAlarn
     description = "The RabbitMQ Server instance at `{{$labels.instance}}` has locked due to high memory",
   }
 
-ALERT SCMSRabbitMQMemAlarn
-  IF rabbitmq_node_mem_alarm != 0
-  FOR 5m
-  LABELS {
-    service = "rabbitmq",
-    severity = "scms",
-    monitored_item = `{{$labels.bosh_job_name}}`,
-    spark = "false",
-  }
-  ANNOTATIONS {
-    summary = "Rabbitmq Server instance `{{$labels.instance}}` has locked",
-    description = "The RabbitMQ Server instance at `{{$labels.instance}}` has locked due to high memory",
-  }
-
-ALERT SCMSRabbitMQMemHigh
+ALERT SCMSRabbitMQMemHighCallout
   IF rabbitmq_node_mem_limit * 0.3 - rabbitmq_node_mem_used < 0
   FOR 5m
   LABELS {
     service = "rabbitmq",
-    severity = "warning",
+    severity = "scms_callout",
     monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
-    spark = "false",
+    spark = "true",
   }
   ANNOTATIONS {
     summary = "Rabbitmq Server instance `{{$labels.instance}}` is down",
@@ -56,32 +69,33 @@ ALERT SCMSRabbitMQMemHigh
   }
 
 
-ALERT SCMSRabbitMQMemoryHigh
+ALERT RabbitMQMemoryHighCallout
   IF rabbitmq_node_mem_limit * 0.3 - rabbitmq_node_mem_used < 0
   FOR 5m
   LABELS {
     service = "rabbitmq",
-    severity = "scms",
-    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
-    spark = "false",
-  }
-  ANNOTATIONS {
-    summary = "Rabbitmq Server instance `{{$labels.instance}}` is down",
-    description = "The RabbitMQ Server instance at `{{$labels.instance}}` has high memory for the last 5m",
-  }
-
-ALERT SCMSRabbitMQCPUHigh
-  IF rabbitmq_node_mem_limit * 0.3 - rabbitmq_node_mem_used < 0
-  FOR 5m
-  LABELS {
-    service = "rabbitmq",
-    severity = "scms",
+    severity = "major",
     monitored_item = `{{$labels.bosh_job_name}}`,
-    spark = "false",
+    spark = "true",
   }
   ANNOTATIONS {
-    summary = "Rabbitmq Server instance `{{$labels.instance}}` has high CPU - {{$value}}",
+    summary = "Rabbitmq Server instance `{{$labels.instance}}` has high Memory: {{$value}}",
     description = "The RabbitMQ Server instance at `{{$labels.instance}}` has high CPU - {{$value}}",
+  }
+
+
+ALERT SCMSRabbitMQMemoryHighSlack
+  IF rabbitmq_node_mem_limit * 0.3 - rabbitmq_node_mem_used < 0
+  FOR 5m
+  LABELS {
+    service = "rabbitmq",
+    severity = "scms",
+    monitored_item = `{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`,
+    spark = "false",
+  }
+  ANNOTATIONS {
+    summary = "Rabbitmq Server instance `{{$labels.instance}}` is down",
+    description = "The RabbitMQ Server instance at `{{$labels.instance}}` has high memory for the last 5m",
   }
 
 
@@ -95,7 +109,7 @@ ALERT SCMSRabbitMQCPUHigh
     spark = "false",
   }
   ANNOTATIONS {
-    summary = "Rabbitmq Server instance `{{$labels.instance}}` has high CPU - {{$value}}",
+    summary = "Rabbitmq Server instance `{{$labels.instance}}` has high CPU: {{$value}}",
     description = "The RabbitMQ Server instance at `{{$labels.instance}}` has high CPU - {{$value}}",
   }  
 
