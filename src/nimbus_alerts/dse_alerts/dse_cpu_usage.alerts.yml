@@ -1,0 +1,16 @@
+groups:
+- name: /tmp/dse_alerts/dse_cpu_usage.alerts
+  rules:
+  - alert: DSEHighCPULoad
+    expr: node_load1{job="cassandra"} > 16
+    for: 10m
+    labels:
+      monitored_item: '{{$labels.instance}}/{{$labels.job}}'
+      service: dse-cassandra
+      severity: warning
+      spark: "false"
+    annotations:
+      description: 'DSE node `{{$labels.instance}}/{{$labels.job}}` had a CPU load
+        average (1m) above 16 for 10 minutes: {{$value}}'
+      summary: DSE node `{{$labels.instance}}/{{$labels.job}}` is reporting a high
+        CPU load average

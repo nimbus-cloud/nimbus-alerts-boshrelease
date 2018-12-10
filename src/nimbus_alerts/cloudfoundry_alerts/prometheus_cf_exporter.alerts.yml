@@ -1,0 +1,289 @@
+groups:
+- name: /tmp/cloudfoundry_alerts/prometheus_cf_exporter.alerts
+  rules:
+  - alert: CFExporterApplicationsScrapeError
+    expr: max by(environment, deployment, instance) (cf_last_applications_scrape_error)
+      != 0
+    for: 1w
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: warning
+      spark: "false"
+    annotations:
+      description: The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        was unable to scrape Applications metrics during the last 10m
+      summary: cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        Applications scrape error
+  - alert: CFExporterApplicationsScrapeTooOld
+    expr: (time() - max by(environment, deployment, instance) (cf_last_applications_scrape_timestamp))
+      > 600
+    for: 1w
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf-exporter
+      severity: warning
+      spark: "false"
+    annotations:
+      description: The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        last scrape for Applications metrics was more than {{humanizeDuration 600}}
+        ago
+      summary: cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        last Applications scrape > {{humanizeDuration 600}} ago
+  - alert: CFExporterOrganizationsScrapeError
+    expr: max by(environment, deployment, instance) (cf_last_organizations_scrape_error)
+      != 0
+    for: 1w
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: warning
+      spark: "false"
+    annotations:
+      description: The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        was unable to scrape Organizations metrics during the last 10m
+      summary: cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        Organizations scrape error
+  - alert: CFExporterOrganizationsScrapeTooOld
+    expr: (time() - max by(environment, deployment, instance) (cf_last_organizations_scrape_timestamp))
+      > 600
+    for: 1w
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: warning
+      spark: "false"
+    annotations:
+      description: The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        last scrape for Organizations metrics was more than {{humanizeDuration 600}}
+        ago
+      summary: cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        last Organizations scrape > {{humanizeDuration 600}} ago
+  - alert: CFExporterRoutesScrapeError
+    expr: max by(environment, deployment, instance) (cf_last_routes_scrape_error)
+      != 0
+    for: 1w
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: warning
+      spark: "false"
+    annotations:
+      description: The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        was unable to scrape Routes metrics during the last 10m
+      summary: cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        Routes scrape error
+  - alert: CFExporterRoutesScrapeTooOld
+    expr: (time() - max by(environment, deployment, instance) (cf_last_routes_scrape_timestamp))
+      > 600
+    for: 1w
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: warning
+      spark: "false"
+    annotations:
+      description: The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        last scrape for Routes metrics was more than {{humanizeDuration 600}} ago
+      summary: cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        last Routes scrape > {{humanizeDuration 600}} ago
+  - alert: CFExporterServicesScrapeError
+    expr: max by(environment, deployment, instance) (cf_last_services_scrape_error)
+      != 0
+    for: 1w
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: warning
+      spark: "false"
+    annotations:
+      description: The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        was unable to scrape Services metrics during the last 10m
+      summary: cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        Services scrape error
+  - alert: CFExporterServicesScrapeTooOld
+    expr: (time() - max by(environment, deployment, instance) (cf_last_services_scrape_timestamp))
+      > 600
+    for: 1w
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: warning
+      spark: "false"
+    annotations:
+      description: The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        last scrape for Services metrics was more than {{humanizeDuration 600}} ago
+      summary: cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        last Services scrape > {{humanizeDuration 600}} ago
+  - alert: CFExporterServiceBindingsScrapeError
+    expr: max by(environment, deployment, instance) (cf_last_service_bindings_scrape_error)
+      != 0
+    for: 1w
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: warning
+      spark: "false"
+    annotations:
+      description: The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        was unable to scrape Service Bindings metrics during the last 10m
+      summary: cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        Service Bindings scrape error
+  - alert: CFExporterServiceBindingsScrapeTooOld
+    expr: (time() - max by(environment, deployment, instance) (cf_last_service_bindings_scrape_timestamp))
+      > 600
+    for: 1w
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: warning
+      spark: "false"
+    annotations:
+      description: The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        last scrape for Service Bindings metrics was more than {{humanizeDuration
+        600}} ago
+      summary: cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        last Service Bindings scrape > {{humanizeDuration 600}}s ago
+  - alert: CFExporterServiceInstancesScrapeError
+    expr: max by(environment, deployment, instance) (cf_last_service_instances_scrape_error)
+      != 0
+    for: 1w
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: warning
+      spark: "false"
+    annotations:
+      description: The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        was unable to scrape Service Instances metrics during the last 10m
+      summary: cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        Service Instances scrape error
+  - alert: CFExporterServiceInstancesScrapeTooOld
+    expr: (time() - max by(environment, deployment, instance) (cf_last_service_instances_scrape_timestamp))
+      > 600
+    for: 1w
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: warning
+      spark: "false"
+    annotations:
+      description: The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        last scrape for Service Instances metrics was more than {{humanizeDuration
+        600}} ago
+      summary: cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        last Service Instances scrape > {{humanizeDuration 600}}s ago
+  - alert: CFExporterServicePlansScrapeError
+    expr: max by(environment, deployment, instance) (cf_last_service_plans_scrape_error)
+      != 0
+    for: 1w
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: warning
+      spark: "false"
+    annotations:
+      description: The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        was unable to scrape Service Plans metrics during the last 10m
+      summary: cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        Service Plans scrape error
+  - alert: CFExporterServicePlansScrapeTooOld
+    expr: (time() - max by(environment, deployment, instance) (cf_last_service_plans_scrape_timestamp))
+      > 600
+    for: 1w
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: warning
+      spark: "false"
+    annotations:
+      description: The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        last scrape for Service Plans metrics was more than {{humanizeDuration 600}}
+        ago
+      summary: cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        last Service Plans scrape > {{humanizeDuration 600}}s ago
+  - alert: CFExporterSpacesScrapeError
+    expr: max by(environment, deployment, instance) (cf_last_spaces_scrape_error)
+      != 0
+    for: 1w
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: warning
+      spark: "false"
+    annotations:
+      description: The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        was unable to scrape Spaces metrics during the last 10m
+      summary: cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        Spaces scrape error
+  - alert: CFExporterSpacesScrapeTooOld
+    expr: (time() - max by(environment, deployment, instance) (cf_last_spaces_scrape_timestamp))
+      > 600
+    for: 1w
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: warning
+      spark: "false"
+    annotations:
+      description: The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        last scrape for Spaces metrics was more than {{humanizeDuration 600}} ago
+      summary: cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        last Spaces scrape > {{humanizeDuration 600}} ago
+  - alert: CFExporterSecurityGroupsScrapeError
+    expr: max by(environment, deployment, instance) (cf_last_security_groups_scrape_error)
+      != 0
+    for: 1w
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: warning
+      spark: "false"
+    annotations:
+      description: The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        was unable to scrape Security Groups metrics during the last 10m
+      summary: cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        Security Groups scrape error
+  - alert: CFExporterSecurityGroupsScrapeTooOld
+    expr: (time() - max by(environment, deployment, instance) (cf_last_security_groups_scrape_timestamp))
+      > 600
+    for: 1w
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: warning
+      spark: "false"
+    annotations:
+      description: The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        last scrape for Security Groups metrics was more than {{humanizeDuration 600}}
+        ago
+      summary: cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        last Security Groups scrape > {{humanizeDuration 600}} ago
+  - alert: CFExporterStacksScrapeError
+    expr: max by(environment, deployment, instance) (cf_last_stacks_scrape_error)
+      != 0
+    for: 1w
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: warning
+      spark: "false"
+    annotations:
+      description: The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        was unable to scrape Stacks metrics during the last 10m
+      summary: cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        Stacks scrape error
+  - alert: CFExporterStacksScrapeTooOld
+    expr: (time() - max by(environment, deployment, instance) (cf_last_stacks_scrape_timestamp))
+      > 600
+    for: 1w
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: warning
+      spark: "false"
+    annotations:
+      description: The `cf_exporter` at `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        last scrape for Stacks metrics was more than {{humanizeDuration 600}} ago
+      summary: cf_exporter `{{$labels.environment}}/{{$labels.deployment}}/{{$labels.instance}}`
+        last Stacks scrape > {{humanizeDuration 600}} ago

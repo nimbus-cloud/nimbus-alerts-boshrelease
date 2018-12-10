@@ -1,0 +1,17 @@
+groups:
+- name: /tmp/dse_alerts/dse_ram_usage.alerts
+  rules:
+  - alert: DSELowFreeRAM
+    expr: (((node_memory_MemTotal{job="cassandra"} - node_memory_MemFree{job="cassandra"}
+      - node_memory_Cached{job="cassandra"}) / (node_memory_MemTotal{job="cassandra"})
+      * 100)) > 90
+    for: 10m
+    labels:
+      monitored_item: '{{$labels.instance}}/{{$labels.job}}'
+      service: dse-cassandra
+      severity: warning
+      spark: "false"
+    annotations:
+      description: 'DSE node `{{$labels.instance}}/{{$labels.job}}` has used more
+        than 90% of its RAM for 10 minutes: {{$value}}%'
+      summary: DSE node is reporting low free RAM

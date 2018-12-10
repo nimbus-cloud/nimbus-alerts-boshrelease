@@ -1,0 +1,16 @@
+groups:
+- name: /tmp/mysql_alerts/mysql_quota_usage_exporter.alerts
+  rules:
+  - alert: MYSQLQuotaAboutToExhaust
+    expr: max by(db_name, db_size_mb, db_max_storage_mb) (mysql_quota_usage) > 0.7
+    for: 5m
+    labels:
+      monitored_item: mysql-database/{{$labels.db_name}}
+      service: mysql-quota
+      severity: minor
+      spark: "true"
+    annotations:
+      description: MYSQL database `{{$labels.db_name}}` uses `{{$labels.db_size_mb}}`MB
+        out of `{{$labels.db_max_storage_mb}}`MB quota
+      summary: 'MYSQL Quota: database used more than 70% of allowed quota, usage:
+        {{$value}}, Datbase: `{{$labels.db_name}}`'

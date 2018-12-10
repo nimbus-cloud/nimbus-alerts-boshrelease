@@ -1,0 +1,99 @@
+groups:
+- name: /tmp/rabbitmq_alerts/rabbit.alerts
+  rules:
+  - alert: RabbitMQServerDown
+    expr: min by(instance) (rabbitmq_up) != 1
+    for: 5m
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: rabbitmq
+      severity: major
+      spark: "true"
+    annotations:
+      description: The RabbitMQ Server instance at `{{$labels.instance}}` has been
+        down the last 5m
+      summary: Rabbitmq Server instance `{{$labels.instance}}` is down
+  - alert: SCMSRabbitMQMemAlarnCallout
+    expr: rabbitmq_node_mem_alarm != 0
+    for: 5m
+    labels:
+      monitored_item: '{{$labels.bosh_job_name}}'
+      service: rabbitmq
+      severity: scms_callout
+      spark: "true"
+    annotations:
+      description: The RabbitMQ Server instance at `{{$labels.instance}}` has locked
+        due to high memory
+      summary: Rabbitmq Server instance `{{$labels.instance}}` has locked
+  - alert: RabbitMQMemAlarn
+    expr: rabbitmq_node_mem_alarm != 0
+    for: 5m
+    labels:
+      monitored_item: '{{$labels.bosh_job_name}}'
+      service: rabbitmq
+      severity: major
+      spark: "true"
+    annotations:
+      description: The RabbitMQ Server instance at `{{$labels.instance}}` has locked
+        due to high memory
+      summary: Rabbitmq Server instance `{{$labels.instance}}` has locked
+  - alert: SCMSRabbitMQMemAlarnSlack
+    expr: rabbitmq_node_mem_alarm != 0
+    for: 5m
+    labels:
+      monitored_item: '{{$labels.bosh_job_name}}'
+      service: rabbitmq
+      severity: scms
+      spark: "false"
+    annotations:
+      description: The RabbitMQ Server instance at `{{$labels.instance}}` has locked
+        due to high memory
+      summary: Rabbitmq Server instance `{{$labels.instance}}` has locked
+  - alert: SCMSRabbitMQMemHighCallout
+    expr: rabbitmq_node_mem_limit * 0.3 - rabbitmq_node_mem_used < 0
+    for: 5m
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: rabbitmq
+      severity: scms_callout
+      spark: "true"
+    annotations:
+      description: The RabbitMQ Server instance at `{{$labels.instance}}` has high
+        memory for the last 5m
+      summary: Rabbitmq Server instance `{{$labels.instance}}` is down
+  - alert: RabbitMQMemoryHighCallout
+    expr: rabbitmq_node_mem_limit * 0.3 - rabbitmq_node_mem_used < 0
+    for: 5m
+    labels:
+      monitored_item: '{{$labels.bosh_job_name}}'
+      service: rabbitmq
+      severity: major
+      spark: "true"
+    annotations:
+      description: The RabbitMQ Server instance at `{{$labels.instance}}` has high
+        CPU - {{$value}}
+      summary: 'Rabbitmq Server instance `{{$labels.instance}}` has high Memory: {{$value}}'
+  - alert: SCMSRabbitMQMemoryHighSlack
+    expr: rabbitmq_node_mem_limit * 0.3 - rabbitmq_node_mem_used < 0
+    for: 5m
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: rabbitmq
+      severity: scms
+      spark: "false"
+    annotations:
+      description: The RabbitMQ Server instance at `{{$labels.instance}}` has high
+        memory for the last 5m
+      summary: Rabbitmq Server instance `{{$labels.instance}}` is down
+  - alert: SCMSRabbitMQCPUHigh
+    expr: bosh_job_load_avg05{bosh_deployment="rabbitmq"} > 5
+    for: 5m
+    labels:
+      monitored_item: '{{$labels.bosh_job_name}}'
+      service: rabbitmq
+      severity: scms
+      spark: "false"
+    annotations:
+      description: The RabbitMQ Server instance at `{{$labels.instance}}` has high
+        CPU - {{$value}}
+      summary: 'Rabbitmq Server instance `{{$labels.instance}}` has high CPU: {{$value}}'

@@ -1,0 +1,45 @@
+groups:
+- name: /tmp/cloudfoundry_alerts/prometheus_firehose_exporter.alerts
+  rules:
+  - alert: FirehoseExporterSlowConsumer
+    expr: max by(environment, instance) (firehose_slow_consumer_alert) != 0
+    for: 15m
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: firehose
+      severity: warning
+      spark: "false"
+    annotations:
+      description: The `firehose_exporter` at `{{$labels.environment}}/{{$labels.instance}}`
+        is reporting a slow consumer alert during the last 5m, consider scaling up
+        the number of `firehose_exporter` instances
+      summary: firehose_exporter `{{$labels.environment}}/{{$labels.instance}}` slow
+        consumer alert
+  - alert: FirehoseExporterLastEnvelopeReceivedTooOld
+    expr: (time() - max by(environment, instance) (firehose_last_envelope_received_timestamp))
+      > 600
+    for: 1h
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: firehose
+      severity: warning
+      spark: "false"
+    annotations:
+      description: The `firehose_exporter` at `{{$labels.environment}}/{{$labels.instance}}`
+        last Envelope received was more than 1h ago
+      summary: firehose_exporter `{{$labels.environment}}/{{$labels.instance}}` last
+        Envelope received > 45m ago
+  - alert: FirehoseExporterLastMetricReceivedTooOld
+    expr: (time() - max by(environment, instance) (firehose_last_metric_received_timestamp))
+      > 600
+    for: 1h
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: firehose
+      severity: warning
+      spark: "false"
+    annotations:
+      description: The `firehose_exporter` at `{{$labels.environment}}/{{$labels.instance}}`
+        last Metric received was more than 1h ago
+      summary: firehose_exporter `{{$labels.environment}}/{{$labels.instance}}` last
+        Metric received > 45m ago
