@@ -1,5 +1,5 @@
 groups:
-- name: /tmp/mysql_alerts/mysql_quota_usage_exporter.alerts
+- name: mysql-quota-usage-exporter
   rules:
   - alert: MYSQLQuotaAboutToExhaust
     expr: max by(db_name, db_size_mb, db_max_storage_mb) (mysql_quota_usage) > 0.7

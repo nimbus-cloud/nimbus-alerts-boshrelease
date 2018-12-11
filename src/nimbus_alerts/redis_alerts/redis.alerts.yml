@@ -1,5 +1,5 @@
 groups:
-- name: /tmp/redis_alerts/redis.alerts
+- name: redis
   rules:
   - alert: RedisNoClientsConnected
     expr: avg by(addr) (redis_connected_clients) < 1

@@ -8,7 +8,7 @@ groups:
           service: bosh-job-process
           severity: minor
           spark: true
-          monitored_item: "`{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`"
+          monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
         annotations:
           summary: "BOSH Job Process `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}/{{$labels.bosh_job_process_name}}` is unhealthy"
           description: "BOSH Job Process `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}/{{$labels.bosh_job_process_name}}` is being reported unhealthy"
@@ -19,7 +19,7 @@ groups:
           service: bosh-job-process
           severity: major
           spark: true
-          monitored_item: "`{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`"
+          monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
         annotations:
           summary: "BOSH Job Process `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}/{{$labels.bosh_job_process_name}}` has been unhealthy for a long time"
           description: "BOSH Job Process `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}/{{$labels.bosh_job_process_name}}` has been reported unhealthy for more than 30m"

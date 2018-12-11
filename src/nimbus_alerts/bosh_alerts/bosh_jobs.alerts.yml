@@ -8,7 +8,7 @@ groups:
           service: bosh-job
           severity: warning
           spark: false
-          monitored_item: "`{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`"
+          monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
         annotations:
           summary: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` is unhealthy"
           description: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` is being reported unhealthy"
@@ -20,7 +20,7 @@ groups:
           service: bosh-job
           severity: major
           spark: false
-          monitored_item: "`{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`"
+          monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
         annotations:
           summary: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` has been unhealthy for a long time"
           description: "BOSH job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` has been reported unhealthy for more than 30m"

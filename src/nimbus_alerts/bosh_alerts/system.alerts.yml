@@ -8,7 +8,7 @@ groups:
           service: bosh-job
           severity: warning
           spark: false
-          monitored_item: "`{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`"
+          monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
         annotations:
           summary: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` is reporting a high CPU load average"
           description: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` had a CPU load average (1m) above 5 for 3 days: {{$value}}"
@@ -19,7 +19,7 @@ groups:
           service: bosh-job
           severity: warning
           spark: false
-          monitored_item: "`{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`"
+          monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
         annotations:
           summary: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` is reporting low free RAM"
           description: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` has used more than 90% of its RAM for 3 days: {{$value}}%"
@@ -30,7 +30,7 @@ groups:
           service: bosh-job
           severity: warning
           spark: false
-          monitored_item: "`{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`"
+          monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
         annotations:
           summary: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` is reporting low swap"
           description: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` has used more than 90% of its swap for 3 days: {{$value}}%"
@@ -41,7 +41,7 @@ groups:
           service: bosh-job
           severity: minor
           spark: true
-          monitored_item: "`{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`"
+          monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
         annotations:
           summary: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` is running out of system disk"
           description: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` has used more than 90% of its system disk for 30m: {{$value}}%"
@@ -52,7 +52,7 @@ groups:
           service: bosh-job
           severity: minor
           spark: true
-          monitored_item: "`{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`"
+          monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
         annotations:
           summary: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` is running out of system disk"
           description: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` has used more than 90% of its system disk for 30m: {{$value}}%"
@@ -63,7 +63,7 @@ groups:
           service: bosh-job
           severity: minor
           spark: true
-          monitored_item: "`{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`"
+          monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
         annotations:
           summary: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` is running out of ephemeral disk"
           description: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` has used more than 80% of its ephemeral disk for 30ms: {{$value}}%"
@@ -74,7 +74,7 @@ groups:
           service: bosh-job
           severity: warning
           spark: true
-          monitored_item: "`{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`"
+          monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
         annotations:
           summary: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` is running out of ephemeral disk"
           description: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` has used more than 80% of its ephemeral disk for 30ms: {{$value}}%"
@@ -85,7 +85,7 @@ groups:
           service: bosh-job
           severity: minor
           spark: true
-          monitored_item: "`{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`"
+          monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
         annotations:
           summary: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` is running out of persistent disk"
           description:  "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` has used more than 90% of its persistent disk for 30m: {{$value}}%"
@@ -96,7 +96,7 @@ groups:
           service: bosh-job
           severity: warning
           spark: true
-          monitored_item: "`{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`"
+          monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
         annotations:
           summary: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` is running out of persistent disk"
           description: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` has used more than 90% of its persistent disk for 30m: {{$value}}%"
@@ -107,7 +107,7 @@ groups:
           service: bosh-job
           severity: major
           spark: true
-          monitored_item: "`{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}`"
+          monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
         annotations:
           summary: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` is running out of inodes"
           description: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` has used more than 90% of its persistent disk inodes for 30m: {{$value}}%"

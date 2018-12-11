@@ -1,5 +1,5 @@
 groups:
-- name: /tmp/rabbitmq_alerts/rabbit.alerts
+- name: rabbit
   rules:
   - alert: RabbitMQServerDown
     expr: min by(instance) (rabbitmq_up) != 1

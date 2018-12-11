@@ -1,5 +1,5 @@
 groups:
-- name: /tmp/consul_alerts/consul.alerts
+- name: consul
   rules:
   - alert: ConsulDown
     expr: min by(instance) (consul_up) < 1

@@ -1,5 +1,5 @@
 groups:
-- name: /tmp/shield_alerts/shield_exporter.alerts
+- name: shield-exporter
   rules:
   - alert: SHIELDBackupFailed
     expr: max by(job_name, status, type) (shield_failed_backup_tasks) > 0

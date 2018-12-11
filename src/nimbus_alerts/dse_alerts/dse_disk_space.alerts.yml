@@ -1,5 +1,5 @@
 groups:
-- name: /tmp/dse_alerts/dse_disk_space.alerts
+- name: dse-disk-space
   rules:
   - alert: DSEFileSystemSpace
     expr: node_filesystem_avail{job="cassandra",mountpoint="/"} < node_filesystem_size{job="cassandra",mountpoint="/"}

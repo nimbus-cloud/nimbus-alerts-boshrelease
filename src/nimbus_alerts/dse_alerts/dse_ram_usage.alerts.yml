@@ -1,5 +1,5 @@
 groups:
-- name: /tmp/dse_alerts/dse_ram_usage.alerts
+- name: dse-ram-usage
   rules:
   - alert: DSELowFreeRAM
     expr: (((node_memory_MemTotal{job="cassandra"} - node_memory_MemFree{job="cassandra"}

@@ -1,5 +1,5 @@
 groups:
-- name: /tmp/postgres_alerts/postgres_alerts
+- name: postgres
   rules:
   - alert: PostgresExporterScrapeError
     expr: max by(instance) (pg_exporter_last_scrape_error) != 0

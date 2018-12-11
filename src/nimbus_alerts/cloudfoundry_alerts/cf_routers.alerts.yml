@@ -1,5 +1,5 @@
 groups:
-- name: /tmp/cloudfoundry_alerts/cf_routers.alerts
+- name: cf-routers
   rules:
   - alert: CFRouterEmitterSyncDurationTooHigh
     expr: max by(environment, bosh_deployment) (firehose_value_metric_route_emitter_route_emitter_sync_duration)

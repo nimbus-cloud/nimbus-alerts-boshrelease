@@ -1,5 +1,5 @@
 groups:
-- name: /tmp/dse_alerts/dse_unstable_nfs.alerts
+- name: dse-unstable-nfs
   rules:
   - alert: DSEUnstableNFS
     expr: node_memory_NFS_Unstable{job="cassandra"} > 0

@@ -1,5 +1,5 @@
 groups:
-- name: /tmp/dse_alerts/dse_cpu_usage.alerts
+- name: dse-cpu-usage
   rules:
   - alert: DSEHighCPULoad
     expr: node_load1{job="cassandra"} > 16

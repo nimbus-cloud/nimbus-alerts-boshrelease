@@ -1,5 +1,5 @@
 groups:
-- name: /tmp/cloudfoundry_alerts/cf_diego.alerts
+- name: cf-diego
   rules:
   - alert: CFLRPAuctionsFailedTooHigh
     expr: avg by(environment, bosh_deployment) (irate(firehose_counter_event_auctioneer_auctioneer_lrp_auctions_started_total[5m]))

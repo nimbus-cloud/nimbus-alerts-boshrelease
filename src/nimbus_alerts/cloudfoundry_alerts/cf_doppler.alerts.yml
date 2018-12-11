@@ -1,5 +1,5 @@
 groups:
-- name: /tmp/cloudfoundry_alerts/cf_doppler.alerts
+- name: cf-doppler
   rules:
   - alert: CFFirehoseDroppedMessagesTooHigh
     expr: max by(environment, bosh_deployment) (irate(firehose_counter_event_doppler_server_doppler_shed_envelopes_total[5m])

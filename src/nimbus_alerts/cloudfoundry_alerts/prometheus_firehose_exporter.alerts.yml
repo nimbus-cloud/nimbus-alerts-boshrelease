@@ -1,5 +1,5 @@
 groups:
-- name: /tmp/cloudfoundry_alerts/prometheus_firehose_exporter.alerts
+- name: prometheus-firehose-exporter
   rules:
   - alert: FirehoseExporterSlowConsumer
     expr: max by(environment, instance) (firehose_slow_consumer_alert) != 0

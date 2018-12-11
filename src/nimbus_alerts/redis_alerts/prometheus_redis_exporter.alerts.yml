@@ -1,5 +1,5 @@
 groups:
-- name: /tmp/redis_alerts/prometheus_redis_exporter.alerts
+- name: prometheus-redis-exporter
   rules:
   - alert: RedisExporterScrapeError
     expr: max by(instance) (redis_exporter_last_scrape_error) != 0

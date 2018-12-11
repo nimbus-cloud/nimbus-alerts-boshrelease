@@ -1,5 +1,5 @@
 groups:
-- name: /tmp/prometheus.alerts
+- name: prometheus
   rules:
   - alert: PrometheusScrapeError
     expr: up == 0

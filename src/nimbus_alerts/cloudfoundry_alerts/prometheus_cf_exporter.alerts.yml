@@ -1,5 +1,5 @@
 groups:
-- name: /tmp/cloudfoundry_alerts/prometheus_cf_exporter.alerts
+- name: prometheus-cf-exporter
   rules:
   - alert: CFExporterApplicationsScrapeError
     expr: max by(environment, deployment, instance) (cf_last_applications_scrape_error)

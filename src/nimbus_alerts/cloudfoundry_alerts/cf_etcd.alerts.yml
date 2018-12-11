@@ -1,5 +1,5 @@
 groups:
-- name: /tmp/cloudfoundry_alerts/cf_etcd.alerts
+- name: cf-etcd
   rules:
   - alert: CFEtcdMoreThanOneLeader
     expr: max by(environment, bosh_deployment) (count by(environment, bosh_deployment,
