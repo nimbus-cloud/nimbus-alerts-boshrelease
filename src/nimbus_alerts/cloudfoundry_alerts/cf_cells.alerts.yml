@@ -1,6 +1,6 @@
 groups:
   - name: cf-cells
-    jobs:
+    rules:
       - alert: CFCellUnhealthy
         expr: max(firehose_value_metric_rep_unhealthy_cell) by(environment, bosh_deployment, bosh_job_name, bosh_job_ip) > 0
         for: 15m
