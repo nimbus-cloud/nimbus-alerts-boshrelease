@@ -1,0 +1,103 @@
+groups:
+- name: cf-routers
+  rules:
+  - alert: CFRouterEmitterSyncDurationTooHigh
+    expr: max by(environment, bosh_deployment) (firehose_value_metric_route_emitter_route_emitter_sync_duration)
+      / 1e+09 > 10
+    for: 30m
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: warning
+      spark: "false"
+    annotations:
+      description: Diego Router Emitter at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}`
+        had a synch duration of {{$value}} seconds during the last 15m
+      summary: 'Diego Router Emitter synch duration at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}`
+        is too high: {{$value}} sec'
+  - alert: CFRouterRequestsTooHigh
+    expr: avg by(environment, bosh_deployment, bosh_job_ip) (irate(firehose_counter_event_gorouter_total_requests_total[5m]))
+      > 2500
+    for: 15m
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: warning
+      spark: "false"
+    annotations:
+      description: CF Router `{{$labels.environment}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_ip}}`
+        has processed {{$value}} requests per second during the last 5m
+      summary: 'Requests per second at CF Router `{{$labels.environment}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_ip}}`
+        is too high: {{$value}}req/s'
+  - alert: CFRoutersLatencyTooHigh
+    expr: avg by(environment, bosh_deployment) (firehose_value_metric_gorouter_latency)
+      > 100
+    for: 2h
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: warning
+      spark: "false"
+    annotations:
+      description: The router's latency at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}`
+        has been {{$value}}ms during the last 30m
+      summary: 'Router''s latency at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}`
+        is too high: {{$value}}ms'
+  - alert: CFRoutesNotBeingRegistered
+    expr: max by(environment, bosh_deployment) (firehose_value_metric_gorouter_ms_since_last_registry_update)
+      / 1000 > 30
+    for: 10m
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: warning
+      spark: "false"
+    annotations:
+      description: Routes at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}`
+        are not being registered to apps correctly. It has been at least {{$value}}
+        seconds since a router received a 'router.register' message from an app
+      summary: Routes at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}`
+        not being registered
+  - alert: CFRouterBadGatewayTooHigh
+    expr: max by(environment, bosh_deployment) (irate(firehose_counter_event_gorouter_bad_gateways_total[5m]))
+      > 100
+    for: 5m
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: warning
+      spark: slack
+    annotations:
+      description: Routers at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}`
+        have been returning {{$value}} bad gateway responses per second during the
+        last 5m
+      summary: 'Bad gateway responses per second at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}`
+        is too high: {{$value}} 5xx res/s'
+  - alert: CFRouter5xxResponsesTooHigh
+    expr: max by(environment, bosh_deployment) (irate(firehose_counter_event_gorouter_responses_5_xx_total[5m]))
+      > 100
+    for: 5m
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: warning
+      spark: slack
+    annotations:
+      description: Routers at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}`
+        have been returning {{$value}} 5xx responses per second during the last 5m
+      summary: '5xx responses per second at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}`
+        is too high: {{$value}} 5xx res/s'
+  - alert: CFRoutesTooLow
+    expr: avg by(environment, bosh_deployment) (firehose_value_metric_gorouter_total_routes)
+      < 5
+    for: 5m
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: warning
+      spark: "false"
+    annotations:
+      description: There has been only {{$value}} routes in the routing table at CF
+        `{{$labels.environment}}/{{$labels.bosh_deployment}}` during the last 5m
+      summary: 'Number of routes at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}`
+        is too low: {{$value}}'

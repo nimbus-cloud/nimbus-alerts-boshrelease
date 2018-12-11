@@ -1,0 +1,15 @@
+groups:
+- name: dse-unstable-nfs
+  rules:
+  - alert: DSEUnstableNFS
+    expr: node_memory_NFS_Unstable{job="cassandra"} > 0
+    for: 10m
+    labels:
+      monitored_item: '{{$labels.instance}}/{{$labels.job}}'
+      service: dse-cassandra
+      severity: warning
+      spark: "false"
+    annotations:
+      description: DSE node `{{$labels.instance}}/{{$labels.job}}` is experincing
+        unstable NFS mount
+      summary: DSE node is experincing unstable NFS

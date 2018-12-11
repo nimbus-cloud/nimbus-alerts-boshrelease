@@ -1,0 +1,15 @@
+groups:
+- name: prometheus-redis-exporter
+  rules:
+  - alert: RedisExporterScrapeError
+    expr: max by(instance) (redis_exporter_last_scrape_error) != 0
+    for: 30m
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: redis-exporter
+      severity: warning
+      spark: "false"
+    annotations:
+      description: The `redis_exporter` at `{{$labels.instance}}` was unable to scrape
+        metrics during the last 10m
+      summary: redis_exporter `{{$labels.instance}}` scrape error

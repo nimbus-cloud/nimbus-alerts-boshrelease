@@ -1,0 +1,134 @@
+groups:
+- name: cf-diego
+  rules:
+  - alert: CFLRPAuctionsFailedTooHigh
+    expr: avg by(environment, bosh_deployment) (irate(firehose_counter_event_auctioneer_auctioneer_lrp_auctions_started_total[5m]))
+      > 1
+    for: 5m
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: warning
+      spark: "false"
+    annotations:
+      description: The number of Diego LRP auctions that failed to be placed on cells
+        at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}` has been too high
+        during the last 5m
+      summary: 'Diego LRP auctions failed at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}`
+        is too high: {{$value}}'
+  - alert: CFTasksAuctionsFailedTooHigh
+    expr: avg by(environment, bosh_deployment) (irate(firehose_counter_event_auctioneer_auctioneer_task_auctions_failed_total[5m]))
+      > 1
+    for: 5m
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: warning
+      spark: "false"
+    annotations:
+      description: The number of Diego Task auctions that failed to be placed on cells
+        at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}` has been too high
+        during the last 5m
+      summary: 'Diego Task auctions failed at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}`
+        is too high: {{$value}}'
+  - alert: CFAuctioneerFetchStatesDurationTooHigh
+    expr: max by(environment, bosh_deployment) (firehose_value_metric_auctioneer_auctioneer_fetch_states_duration)
+      / 1e+09 > 5
+    for: 5m
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: warning
+      spark: "false"
+    annotations:
+      description: Diego Auctioneer at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}`
+        has been taken {{$value}} seconds to fetch state from Diego Cells for the
+        last 5m
+      summary: 'Diego Auctioneer fetch state duration at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}`
+        is too high: {{$value}} sec'
+  - alert: CFBBSConvergenceLRPDurationTooHigh
+    expr: max by(environment, bosh_deployment) (firehose_value_metric_bbs_convergence_lrp_duration)
+      / 1e+09 > 10
+    for: 15m
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: warning
+      spark: "false"
+    annotations:
+      description: Diego BBS at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}`
+        had a convergence LRP duration of {{$value}} seconds during the last 15m
+      summary: 'Diego BBS Convergence LRP duration at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}`
+        is too high: {{$value}} sec'
+  - alert: CFBBSRequestLatencyTooHigh
+    expr: max by(environment, bosh_deployment) (firehose_value_metric_bbs_request_latency)
+      / 1e+09 > 5
+    for: 15m
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: warning
+      spark: "false"
+    annotations:
+      description: Diego BBS at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}`
+        had a request latency of {{$value}} seconds during the last 15m
+      summary: 'Diego BBS request latency at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}`
+        is too high: {{$value}} sec'
+  - alert: CFAppInstancesFewerThanExpected
+    expr: avg by(environment, bosh_deployment) (firehose_value_metric_bbs_lr_ps_missing)
+      > 5
+    for: 5m
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: warning
+      spark: "false"
+    annotations:
+      description: CF `{{$labels.environment}}/{{$labels.bosh_deployment}}` has fewer
+        application instances than expected, there has been {{$value}} missing LRPs
+        during the last 5m
+      summary: CF `{{$labels.environment}}/{{$labels.bosh_deployment}}` has {{$value}}
+        fewer app instances than expected
+  - alert: CFAppInstancesMoreThanExpected
+    expr: avg by(environment, bosh_deployment) (firehose_value_metric_bbs_lr_ps_extra)
+      > 5
+    for: 5m
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: warning
+      spark: "false"
+    annotations:
+      description: CF `{{$labels.environment}}/{{$labels.bosh_deployment}}` has more
+        application instances than expected, there has been {{$value}} extra LRPs
+        during the last 5m
+      summary: CF `{{$labels.environment}}/{{$labels.bosh_deployment}}` has {{$value}}
+        more app instances than expected
+  - alert: CFRepBulkSynchDurationTooHigh
+    expr: max by(environment, bosh_deployment) (firehose_value_metric_rep_rep_bulk_sync_duration)
+      / 1e+09 > 10
+    for: 15m
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: warning
+      spark: "false"
+    annotations:
+      description: Diego Rep at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}`
+        has been taken {{$value}} seconds to sync the ActualLRPs for the last 15m
+      summary: 'Diego Rep bulk sync duration at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}`
+        is too high: {{$value}} sec'
+  - alert: CFNsyncBulkerSyncDurationTooHigh
+    expr: max by(environment, bosh_deployment) (firehose_value_metric_nsync_bulker_desired_lrp_sync_duration)
+      / 1e+09 > 10
+    for: 15m
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: warning
+      spark: "false"
+    annotations:
+      description: Diego Nsync bulker at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}`
+        had a desired LRP sync duration of {{$value}} seconds during the last 15m
+      summary: 'Diego Nsync bulker desired LRP sync duration at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}`
+        is too high: {{$value}} sec'
