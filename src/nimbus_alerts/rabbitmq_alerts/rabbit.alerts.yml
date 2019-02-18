@@ -97,7 +97,7 @@ groups:
       description: The RabbitMQ Server instance at `{{$labels.instance}}` has high
         CPU - {{$value}}
       summary: 'Rabbitmq Server instance `{{$labels.instance}}` has high CPU: {{$value}}'
-  - alert: ClusterPartition
+  - alert: RabbitMQClusterPartition
     expr: rabbitmq_partitions > 0
     for: 30m
     labels:
