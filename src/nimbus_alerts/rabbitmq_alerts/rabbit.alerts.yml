@@ -44,7 +44,7 @@ groups:
       monitored_item: '{{$labels.bosh_job_name}}'
       service: rabbitmq
       severity: scms
-      spark: "false"
+      spark: "true"
     annotations:
       description: The RabbitMQ Server instance at `{{$labels.instance}}` has locked
         due to high memory
@@ -80,7 +80,7 @@ groups:
       monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
       service: rabbitmq
       severity: scms
-      spark: "false"
+      spark: "true"
     annotations:
       description: The RabbitMQ Server instance at `{{$labels.instance}}` has high
         memory for the last 5m
@@ -92,7 +92,7 @@ groups:
       monitored_item: '{{$labels.bosh_job_name}}'
       service: rabbitmq
       severity: scms
-      spark: "false"
+      spark: "true"
     annotations:
       description: The RabbitMQ Server instance at `{{$labels.instance}}` has high
         CPU - {{$value}}
