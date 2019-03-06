@@ -1,5 +1,5 @@
 groups:
-  - name: bosh-system
+  - name: bosh-system-huge2
     rules:
       - alert: BOSHJobHighCPULoad
         expr: avg(bosh_job_load_avg01{bosh_job_name!~"^compilation.*"}) by(environment, bosh_name, bosh_deployment, bosh_job_name, bosh_job_index) > 5
