@@ -1,5 +1,5 @@
 ---
-name: nimbus_alerts
+name: nimbus_alert_tests
 
 packages:
   - nimbus_alerts
