@@ -1,5 +1,5 @@
 groups:
-  - name: bosh-processes-huge
+  - name: bosh-processes
     rules:
       - alert: BOSHJobProcessUnhealthy
         expr: max(bosh_job_process_healthy{bosh_job_name!~"^compilation.*"}) by(environment, bosh_name, bosh_deployment, bosh_job_name, bosh_job_index, bosh_job_process_name) < 1
