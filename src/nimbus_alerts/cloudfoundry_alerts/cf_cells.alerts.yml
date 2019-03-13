@@ -3,7 +3,7 @@ groups:
     rules:
       - alert: CFCellUnhealthy
         expr: max(firehose_value_metric_rep_unhealthy_cell) by(environment, bosh_deployment, bosh_job_name, bosh_job_ip) > 0
-        for: 15m
+        for: 30m
         labels:
           service: cf
           severity: minor
@@ -11,7 +11,7 @@ groups:
           spark: true
         annotations:
           summary: "CF Cell `{{$labels.environment}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_ip}}` is unhealthy"
-          description: "CF Cell `{{$labels.environment}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_ip}}` has been unhealthy during the last 5m"
+          description: "CF Cell `{{$labels.environment}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_ip}}` has been unhealthy during the last 30m"
       - alert: CFCellsOverallAvailableMemoryTooLow
         expr: (sum(avg(firehose_value_metric_rep_capacity_remaining_memory) by(environment, bosh_deployment, bosh_job_name, bosh_job_id)) by(environment, bosh_deployment) / sum(avg(firehose_value_metric_rep_capacity_total_memory) by(environment, bosh_deployment, bosh_job_name, bosh_job_id)) by(environment, bosh_deployment)) * 100 < 25
         for: 15m
