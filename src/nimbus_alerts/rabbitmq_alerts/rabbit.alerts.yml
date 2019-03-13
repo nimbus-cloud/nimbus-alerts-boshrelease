@@ -13,7 +13,7 @@ groups:
       description: The RabbitMQ Server instance at `{{$labels.instance}}` has been
         down the last 5m
       summary: Rabbitmq Server instance `{{$labels.instance}}` is down
-  - alert: SCMSRabbitMQMemAlarnCallout
+  - alert: SCMSRabbitMQMemAlarmCallout
     expr: rabbitmq_node_mem_alarm != 0
     for: 5m
     labels:
@@ -25,7 +25,7 @@ groups:
       description: The RabbitMQ Server instance at `{{$labels.instance}}` has locked
         due to high memory
       summary: Rabbitmq Server instance `{{$labels.instance}}` has locked
-  - alert: RabbitMQMemAlarn
+  - alert: RabbitMQMemAlarm
     expr: rabbitmq_node_mem_alarm != 0
     for: 5m
     labels:
@@ -37,7 +37,7 @@ groups:
       description: The RabbitMQ Server instance at `{{$labels.instance}}` has locked
         due to high memory
       summary: Rabbitmq Server instance `{{$labels.instance}}` has locked
-  - alert: SCMSRabbitMQMemAlarnSlack
+  - alert: SCMSRabbitMQMemAlarmSlack
     expr: rabbitmq_node_mem_alarm != 0
     for: 5m
     labels:
