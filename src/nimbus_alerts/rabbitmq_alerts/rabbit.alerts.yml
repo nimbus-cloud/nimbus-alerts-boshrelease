@@ -49,18 +49,18 @@ groups:
       description: The RabbitMQ Server instance at `{{$labels.instance}}` has locked
         due to high memory
       summary: Rabbitmq Server instance `{{$labels.instance}}` has locked
-  - alert: SCMSRabbitMQMemHighCallout
-    expr: rabbitmq_node_mem_limit * 0.3 - rabbitmq_node_mem_used < 0
-    for: 5m
-    labels:
-      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
-      service: rabbitmq
-      severity: scms_callout
-      spark: "true"
-    annotations:
-      description: The RabbitMQ Server instance at `{{$labels.instance}}` has high
-        memory for the last 5m
-      summary: Rabbitmq Server instance `{{$labels.instance}}` is down
+  # - alert: SCMSRabbitMQMemHighCallout
+  #   expr: rabbitmq_node_mem_limit * 0.3 - rabbitmq_node_mem_used < 0
+  #   for: 5m
+  #   labels:
+  #     monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+  #     service: rabbitmq
+  #     severity: scms_callout
+  #     spark: "true"
+  #   annotations:
+  #     description: The RabbitMQ Server instance at `{{$labels.instance}}` has high
+  #       memory for the last 5m
+  #     summary: Rabbitmq Server instance `{{$labels.instance}}` is down
   - alert: RabbitMQMemoryHighCallout
     expr: rabbitmq_node_mem_limit * 0.3 - rabbitmq_node_mem_used < 0
     for: 5m

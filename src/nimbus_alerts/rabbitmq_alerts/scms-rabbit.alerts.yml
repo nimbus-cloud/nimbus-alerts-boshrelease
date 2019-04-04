@@ -6,7 +6,7 @@ groups:
     for: 5m
     labels:
       monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
-      service: rabbitmq
+      service: scms-rabbitmq
       severity: scms
       spark: "false"
     annotations:
