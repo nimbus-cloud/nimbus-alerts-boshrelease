@@ -72,7 +72,7 @@ groups:
     labels:
       monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
       service: rabbitmq
-      severity: scms_developer_callout
+      severity: scms_callout
       spark: "true"
     annotations:
       description: The RabbitMQ Server queue at `{{$labels.instance}}` has over 1000 messages for over 5m
@@ -84,7 +84,7 @@ groups:
     labels:
       monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
       service: rabbitmq
-      severity: scms_developer_callout
+      severity: scms_callout
       spark: "true"
     annotations:
       description: The RabbitMQ Server `{{$labels.instance}}` has a message older than 5 minutes
