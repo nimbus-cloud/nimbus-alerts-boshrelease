@@ -31,7 +31,7 @@ groups:
         is too high: {{$value}}req/s'
   - alert: CFRoutersLatencyTooHigh
     expr: avg by(environment, bosh_deployment) (firehose_value_metric_gorouter_latency)
-      > 350
+      > 500
     for: 2h
     labels:
       monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
