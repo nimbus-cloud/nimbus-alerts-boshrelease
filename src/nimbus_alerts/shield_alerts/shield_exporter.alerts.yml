@@ -26,7 +26,7 @@ groups:
         for: <%= p('shield_alerts.job_failed.evaluation_time') %>
         labels:
           service: shield
-          severity: warning
+          severity: minor
         annotations:
           summary: "Shield Job `{{$labels.job_name}}` at `{{$labels.environment}}/{{$labels.backend_name}}` failed > <%= p('shield_alerts.job_failed.evaluation_time') %>"
           description: "The Shield Job `{{$labels.job_name}}` at `{{$labels.environment}}/{{$labels.backend_name}}` has been in a `failing` state for more than <%= p('shield_alerts.job_failed.evaluation_time') %>"
@@ -36,7 +36,7 @@ groups:
         for: <%= p('shield_alerts.job_paused.evaluation_time') %>
         labels:
           service: shield
-          severity: warning
+          severity: minor
         annotations:
           summary: "Shield Job `{{$labels.job_name}}` at `{{$labels.environment}}/{{$labels.backend_name}}` paused > <%= p('shield_alerts.job_paused.evaluation_time') %>"
           description: "The Shield Job `{{$labels.job_name}}` at `{{$labels.environment}}/{{$labels.backend_name}}` has been in a `paused` state for more than <%= p('shield_alerts.job_paused.evaluation_time') %>"
