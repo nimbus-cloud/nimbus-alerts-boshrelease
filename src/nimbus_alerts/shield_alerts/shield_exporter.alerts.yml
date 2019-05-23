@@ -7,6 +7,8 @@ groups:
         labels:
           service: shield
           severity: warning
+          spark: true
+          monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
         annotations:
           summary: "Shield Job `{{$labels.job_name}}` at `{{$labels.environment}}/{{$labels.backend_name}}` pending > 5h"
           description: "The Shield Job `{{$labels.job_name}}` at `{{$labels.environment}}/{{$labels.backend_name}}` has been in a `pending` state for more than 5h"
@@ -17,6 +19,8 @@ groups:
         labels:
           service: shield
           severity: warning
+          spark: true
+          monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
         annotations:
           summary: "Shield Job `{{$labels.job_name}}` at `{{$labels.environment}}/{{$labels.backend_name}}` running > 5h"
           description: "The Shield Job `{{$labels.job_name}}` at `{{$labels.environment}}/{{$labels.backend_name}}` has been in a `running` state for more than 5h"
@@ -27,6 +31,8 @@ groups:
         labels:
           service: shield
           severity: minor
+          spark: true
+          monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
         annotations:
           summary: "Shield Job `{{$labels.job_name}}` at `{{$labels.environment}}/{{$labels.backend_name}}` failed > 5h"
           description: "The Shield Job `{{$labels.job_name}}` at `{{$labels.environment}}/{{$labels.backend_name}}` has been in a `failing` state for more than 5h"
@@ -37,6 +43,8 @@ groups:
         labels:
           service: shield
           severity: minor
+          spark: true
+          monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
         annotations:
           summary: "Shield Job `{{$labels.job_name}}` at `{{$labels.environment}}/{{$labels.backend_name}}` paused > 5h"
           description: "The Shield Job `{{$labels.job_name}}` at `{{$labels.environment}}/{{$labels.backend_name}}` has been in a `paused` state for more than 5h"
