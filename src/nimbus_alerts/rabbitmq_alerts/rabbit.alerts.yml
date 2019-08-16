@@ -109,9 +109,9 @@ groups:
       description: "Cluster partition\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
   - alert: RabbitMQRunning
     expr: rabbitmq_running < 1
-    for: 5m
+    for: 30m
     labels:
-      severity: minor
+      severity: major
       spark: "true"
       monitored_item: '{{$labels.bosh_job_name}}'
     annotations:
