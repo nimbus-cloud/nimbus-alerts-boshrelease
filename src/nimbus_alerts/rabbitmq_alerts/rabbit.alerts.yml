@@ -117,3 +117,4 @@ groups:
     annotations:
       summary: "The RabbitMQ Server instance at `{{$labels.instance}}` has been down in the last 5m"
       description: "Rabbitmq Server instance `{{$labels.instance}}` is down"
+      
