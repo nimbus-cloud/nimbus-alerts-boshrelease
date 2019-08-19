@@ -115,6 +115,6 @@ groups:
       spark: "true"
       monitored_item: '{{$labels.bosh_job_name}}'
     annotations:
-      summary: "The RabbitMQ Server instance at `{{$labels.instance}}` has been down in the last 5m"
+      summary: "The RabbitMQ Server instance at `{{$labels.instance}}` has been down in the last 30m"
       description: "Rabbitmq Server instance `{{$labels.instance}}` is down"
       
