@@ -1,14 +1,42 @@
 groups:
-- name: shield-exporter
-  rules:
-  - alert: SHIELDBackupFailed
-    expr: max by(job_name, status, type) (shield_failed_backup_tasks) > 0
-    for: 5m
-    labels:
-      monitored_item: '{{$labels.job_name}}'
-      service: shield
-      severity: minor
-      spark: "true"
-    annotations:
-      description: SHIELD backup for job `{{$labels.job_name}}` failed
-      summary: 'SHIELD: Backup task failed'
+  - name: shield-jobs
+    rules:
+      - alert: ShieldJobPending
+        expr: shield_job_status == 1
+        for: 5h
+        labels:
+          service: shield
+          severity: warning
+        annotations:
+          summary: "Shield Job `{{$labels.job_name}}` at `{{$labels.environment}}/{{$labels.backend_name}}` pending > 5h"
+          description: "The Shield Job `{{$labels.job_name}}` at `{{$labels.environment}}/{{$labels.backend_name}}` has been in a `pending` state for more than 5h"
+
+      - alert: ShieldJobRunning
+        expr: shield_job_status == 2
+        for: 5h
+        labels:
+          service: shield
+          severity: warning
+        annotations:
+          summary: "Shield Job `{{$labels.job_name}}` at `{{$labels.environment}}/{{$labels.backend_name}}` running > 5h"
+          description: "The Shield Job `{{$labels.job_name}}` at `{{$labels.environment}}/{{$labels.backend_name}}` has been in a `running` state for more than 5h"
+
+      - alert: ShieldJobFailed
+        expr: shield_job_status == 4 and shield_job_paused == 0
+        for: 5h
+        labels:
+          service: shield
+          severity: minor
+        annotations:
+          summary: "Shield Job `{{$labels.job_name}}` at `{{$labels.environment}}/{{$labels.backend_name}}` failed > 5h"
+          description: "The Shield Job `{{$labels.job_name}}` at `{{$labels.environment}}/{{$labels.backend_name}}` has been in a `failing` state for more than 5h"
+
+      - alert: ShieldJobPaused
+        expr: shield_job_paused == 1
+        for: 5h
+        labels:
+          service: shield
+          severity: minor
+        annotations:
+          summary: "Shield Job `{{$labels.job_name}}` at `{{$labels.environment}}/{{$labels.backend_name}}` paused > 5h"
+          description: "The Shield Job `{{$labels.job_name}}` at `{{$labels.environment}}/{{$labels.backend_name}}` has been in a `paused` state for more than 5h"
