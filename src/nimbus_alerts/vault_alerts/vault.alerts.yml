@@ -1,0 +1,25 @@
+groups:
+- name: vault
+  rules:
+  - alert: VaultSealed
+    expr: max by(instance, job) (vault_sealed) > 1
+    for: 5m
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: vault
+      severity: major
+      spark: "true"
+    annotations:
+      description: Vault Server `{{$labels.instance}}` has been sealed for 5m
+      summary: Vault Server `{{$labels.instance}}` is sealed
+  - alert: VaultDown
+    expr: max by(instance, job) (vault_up) < 1
+    for: 5m
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: vault
+      severity: major
+      spark: "true"
+    annotations:
+      description: Vault Server `{{$labels.instance}}` has been down for 5m
+      summary: Vault Server `{{$labels.instance}}` is down
