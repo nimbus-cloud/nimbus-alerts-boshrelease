@@ -2,7 +2,7 @@ groups:
 - name: vault
   rules:
   - alert: VaultSealed
-    expr: max by(instance, job) (vault_sealed) > 1
+    expr: max by(instance, job) (vault_sealed) > 0
     for: 5m
     labels:
       monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
