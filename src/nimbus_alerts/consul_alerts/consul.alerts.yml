@@ -14,7 +14,7 @@ groups:
         the last 5m
       summary: Consul instance `{{$labels.instance}}` is down
   - alert: ConsulNodeHealthCheckFailing
-    expr: min by(instance, node, check) (consul_health_node_status) < 1
+    expr: min by(instance, node, check) (consul_health_node_status{status="passing"}) < 1
     for: 5m
     labels:
       monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
