@@ -1,5 +1,5 @@
 - alert: OutOfDiskSpaceSlack
-  expr: node_filesystem_free_bytes{mountpoint ="/"} / node_filesystem_size_bytes{mountpoint ="/"}  * 100 < 30
+  expr: node_filesystem_free_bytes / node_filesystem_size_bytes * 100 * 100 < 30
   for: 10m
   labels:
     severity: warning
@@ -10,7 +10,7 @@
     description: "Disk is almost full (< 30% left)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
 
 - alert: OutOfDiskSpace
-  expr: node_filesystem_free_bytes{mountpoint ="/"} / node_filesystem_size_bytes{mountpoint ="/"}  * 100 < 20
+  expr: node_filesystem_free_bytes / node_filesystem_size_bytes * 100 < 20
   for: 10m
   labels:
     severity: major
