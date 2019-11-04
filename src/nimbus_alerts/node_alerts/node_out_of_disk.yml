@@ -1,0 +1,22 @@
+- alert: OutOfDiskSpaceSlack
+  expr: node_filesystem_free_bytes / node_filesystem_size_bytes * 100 < 30
+  for: 10m
+  labels:
+    severity: warning
+    spark: false
+    monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+  annotations:
+    summary: "Out of disk space (instance {{ $labels.instance }})"
+    description: "Disk is almost full (< 30% left)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+- alert: OutOfDiskSpace
+  expr: node_filesystem_free_bytes / node_filesystem_size_bytes * 100 < 20
+  for: 10m
+  labels:
+    severity: major
+    spark: true
+    monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+  annotations:
+    summary: "Out of disk space (instance {{ $labels.instance }})"
+    description: "Disk is almost full (< 20% left)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
