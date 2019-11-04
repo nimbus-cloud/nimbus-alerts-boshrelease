@@ -1,5 +1,5 @@
 - alert: OutOfDiskSpaceSlack
-  expr: node_filesystem_free_bytes / node_filesystem_size_bytes * 100 * 100 < 30
+  expr: node_filesystem_free_bytes / node_filesystem_size_bytes * 100 < 30
   for: 10m
   labels:
     severity: warning
