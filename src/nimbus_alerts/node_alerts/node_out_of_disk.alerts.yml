@@ -1,0 +1,25 @@
+groups:
+- name: node-out-of-disk
+  rules:
+  - alert: NodeOutOfDiskSpaceSlack
+    expr: node_filesystem_free_bytes / node_filesystem_size_bytes * 100 < 30
+    for: 10m
+    labels:
+      monitored_item: '{{$labels.instance}}'
+      severity: warning
+      spark: false
+      service: node
+    annotations:
+      description: "Out of disk space (instance {{ $labels.instance }})"
+      summary: "Disk is almost full (< 30% left)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+  - alert: NodeOutOfDiskSpace
+    expr: node_filesystem_free_bytes / node_filesystem_size_bytes * 100 < 20
+    for: 10m
+    labels:
+      monitored_item: '{{$labels.instance}}'
+      severity: major
+      spark: true
+      service: node
+    annotations:
+      description: "Out of disk space (instance {{ $labels.instance }})"
+      summary: "Disk is almost full (< 20% left)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"

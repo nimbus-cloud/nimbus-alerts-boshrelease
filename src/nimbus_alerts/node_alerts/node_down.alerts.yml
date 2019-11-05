@@ -1,0 +1,14 @@
+groups:
+- name: node-down
+  rules:
+  - alert: NodeDown
+    expr: node_network_up{device!="lo"} == 0
+    for: 10m
+    labels:
+      monitored_item: '{{$labels.instance}}'
+      severity: major
+      spark: "true"
+      service: node
+    annotations:
+      description: "'{{$labels.instance}}' has been down for 10mins"
+      summary: "'{{$labels.instance}}' has been down for 10mins"
