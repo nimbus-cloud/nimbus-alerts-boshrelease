@@ -1,0 +1,71 @@
+# Compatible with prometheus-boshrelease >= 23.4.0 and mysqld exporter >= 0.11
+# Galera replication only
+# (https://galeracluster.com/library/documentation/monitoring-cluster.html)
+# (https://galeracluster.com/library/documentation/node-states.html)
+groups:
+- name: mysql-galera
+  rules:
+  - alert: MySQLGaleraSync
+    expr: |
+      (mysql_global_status_wsrep_local_state != 4 \
+      and \
+      mysql_global_variables_wsrep_desync == 0)
+    for: 5m
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: mysql
+      severity: major
+      spark: "true"
+    annotations:
+      description: MySQL galera node  `{{$labels.instance}}` is out of sync
+      summary: MySQL galera node  `{{$labels.instance}}` is out of sync
+  - alert: MySQLGaleraFlow
+    expr: |
+      (mysql_global_status_wsrep_flow_control_paused > 0.2 \
+      or \
+      mysql_global_status_wsrep_local_recv_queue_avg > 1)
+    for: 5m
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: mysql
+      severity: minor
+      spark: "false"
+    annotations:
+      description: MySQL galera replication at `{{$labels.bosh_deployment}}` deployment is slow
+      summary: MySQL galera replication at `{{$labels.bosh_deployment}}` deployment is slow
+  - alert: MySQLGaleraThrottling
+    expr: mysql_global_status_wsrep_local_send_queue_avg > 0.2
+    for: 5m
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: mysql
+      severity: minor
+      spark: "false"
+    annotations:
+      description: MySQL galera replication throttling at `{{$labels.bosh_deployment}}` deployment
+      summary: MySQL galera replication throttling at `{{$labels.bosh_deployment}}` deployment
+  - alert: MySQLGaleraNodeStatus
+    expr: mysql_global_status_wsrep_ready != 1
+    for: 5m
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: mysql
+      severity: minor
+      spark: "false"
+    annotations:
+      description: MySQL galera node  `{{$labels.instance}}` is not ready
+      summary: MySQL galera node  `{{$labels.instance}}` is not ready
+  - alert: MySQLGaleraDonor
+    expr: |
+      (mysql_global_status_wsrep_local_state == 2 \
+      and \
+      mysql_global_status_wsrep_local_recv_queue > 100)
+    for: 5m
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: mysql
+      severity: minor
+      spark: "false"
+    annotations:
+      description: MySQL galera donor node  `{{$labels.instance}}` is falling behind (queue size `{{$value}}`)
+      summary: MySQL galera donor node  `{{$labels.instance}}` is falling behind
