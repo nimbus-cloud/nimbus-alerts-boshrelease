@@ -50,9 +50,9 @@ groups:
       summary: The MongoDB replset member node `{{$labels.instance}}` is in UNKNOWN state
   - alert: ReplicaSetReplication
     expr: |                                                         # latency in seconds
-      (mongodb_replset_member_optime_date{state="PRIMARY"} \
-      - ON() \
-      mongodb_replset_member_optime_date{state="SECONDARY"}) \
+      (mongodb_replset_member_optime_date{state="PRIMARY"}
+      - ON()
+      mongodb_replset_member_optime_date{state="SECONDARY"})
       > 10
     for: 5m
     labels:

@@ -7,8 +7,8 @@ groups:
   rules:
   - alert: MySQLGaleraSync
     expr: |
-      (mysql_global_status_wsrep_local_state != 4 \
-      and \
+      (mysql_global_status_wsrep_local_state != 4
+      and
       mysql_global_variables_wsrep_desync == 0)
     for: 5m
     labels:
@@ -21,8 +21,8 @@ groups:
       summary: MySQL galera node  `{{$labels.instance}}` is out of sync
   - alert: MySQLGaleraFlow
     expr: |
-      (mysql_global_status_wsrep_flow_control_paused > 0.2 \
-      or \
+      (mysql_global_status_wsrep_flow_control_paused > 0.2
+      or
       mysql_global_status_wsrep_local_recv_queue_avg > 1)
     for: 5m
     labels:
@@ -57,8 +57,8 @@ groups:
       summary: MySQL galera node  `{{$labels.instance}}` is not ready
   - alert: MySQLGaleraDonor
     expr: |
-      (mysql_global_status_wsrep_local_state == 2 \
-      and \
+      (mysql_global_status_wsrep_local_state == 2
+      and
       mysql_global_status_wsrep_local_recv_queue > 100)
     for: 5m
     labels:
