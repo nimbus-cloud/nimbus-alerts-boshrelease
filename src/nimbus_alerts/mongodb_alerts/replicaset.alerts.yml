@@ -2,7 +2,7 @@
 groups:
 - name: mongodb
   rules:
-  - alert: ReplicaSetMemberHealth
+  - alert: MongoDBReplSetMemberHealth
     expr: min by(name, state) (mongodb_replset_member_health) != 1    # 0 down, 1 up
     for: 5m
     labels:
@@ -13,7 +13,7 @@ groups:
     annotations:
       description: The MongoDB replset member node `{{$labels.instance}}` is not responding for 1 minute
       summary: The MongoDB replset member node `{{$labels.instance}}` is down
-  - alert: ReplicaSetQuorum
+  - alert: MongoDBReplSetQuorum
     expr: sum (min by(name) (mongodb_replset_member_health{job="mongo_exporter"})) < 2  # the sum of all healthy nodes
     for: 5m
     labels:
@@ -25,7 +25,7 @@ groups:
       description: The MongoDB replset at `{{$labels.bosh_deployment}}` deployment lost quorum and at least
         a couple of it members are down
       summary: The MongoDB replset at `{{$labels.bosh_deployment}}` deployment lost quorum
-  - alert: ReplicaSetMemberStateRecovering
+  - alert: MongoDBReplSetMemberStateRecovering
     expr: min by(name, state) (mongodb_replset_member_state) == 3   # https://docs.mongodb.com/v3.4/reference/replica-states/
     for: 5m
     labels:
@@ -37,7 +37,7 @@ groups:
       description: The MongoDB replset member node `{{$labels.instance}}` performs transition from completing
         a rollback or resync for 5 minutes
       summary: The MongoDB replset member node `{{$labels.instance}}` is in RECOVERING state
-  - alert: ReplicaSetMemberStateUnknown
+  - alert: MongoDBReplSetMemberStateUnknown
     expr: min by(name, state) (mongodb_replset_member_state) == 6   # https://docs.mongodb.com/v3.4/reference/replica-states/
     for: 5m
     labels:
@@ -48,7 +48,7 @@ groups:
     annotations:
       description: The MongoDB replset member node `{{$labels.instance}}` is not known
       summary: The MongoDB replset member node `{{$labels.instance}}` is in UNKNOWN state
-  - alert: ReplicaSetReplication
+  - alert: MongoDBReplSetReplication
     expr: |                                                         # latency in seconds
       (mongodb_replset_member_optime_date{state="PRIMARY"}
       - ON()
