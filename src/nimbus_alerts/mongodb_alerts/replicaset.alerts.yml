@@ -1,0 +1,65 @@
+# Compatible with MongoDB 3.4
+groups:
+- name: mongodb
+  rules:
+  - alert: MongoDBReplSetMemberHealth
+    expr: min by(name, state) (mongodb_replset_member_health) != 1    # 0 down, 1 up
+    for: 5m
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: mongodb
+      severity: minor
+      spark: "false"
+    annotations:
+      description: The MongoDB replset member node `{{$labels.instance}}` is not responding for 1 minute
+      summary: The MongoDB replset member node `{{$labels.instance}}` is down
+  - alert: MongoDBReplSetQuorum
+    expr: sum (min by(name) (mongodb_replset_member_health{job="mongo_exporter"})) < 2  # the sum of all healthy nodes
+    for: 5m
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: mongodb
+      severity: major
+      spark: "true"
+    annotations:
+      description: The MongoDB replset at `{{$labels.bosh_deployment}}` deployment lost quorum and at least
+        a couple of it members are down
+      summary: The MongoDB replset at `{{$labels.bosh_deployment}}` deployment lost quorum
+  - alert: MongoDBReplSetMemberStateRecovering
+    expr: min by(name, state) (mongodb_replset_member_state) == 3   # https://docs.mongodb.com/v3.4/reference/replica-states/
+    for: 5m
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: mongodb
+      severity: minor
+      spark: "false"
+    annotations:
+      description: The MongoDB replset member node `{{$labels.instance}}` performs transition from completing
+        a rollback or resync for 5 minutes
+      summary: The MongoDB replset member node `{{$labels.instance}}` is in RECOVERING state
+  - alert: MongoDBReplSetMemberStateUnknown
+    expr: min by(name, state) (mongodb_replset_member_state) == 6   # https://docs.mongodb.com/v3.4/reference/replica-states/
+    for: 5m
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: mongodb
+      severity: minor
+      spark: "false"
+    annotations:
+      description: The MongoDB replset member node `{{$labels.instance}}` is not known
+      summary: The MongoDB replset member node `{{$labels.instance}}` is in UNKNOWN state
+  - alert: MongoDBReplSetReplication
+    expr: |                                                         # latency in seconds
+      (mongodb_replset_member_optime_date{state="PRIMARY"}
+      - ON()
+      mongodb_replset_member_optime_date{state="SECONDARY"})
+      > 10
+    for: 5m
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: mongodb
+      severity: minor
+      spark: "false"
+    annotations:
+      description: The MongoDB replication latency at `{{$labels.bosh_deployment}}` deployment is more than 10s 
+      summary: The MongoDB replication at `{{$labels.bosh_deployment}}` deployment is slow
