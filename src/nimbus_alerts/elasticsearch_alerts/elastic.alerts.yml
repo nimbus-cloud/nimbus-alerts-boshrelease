@@ -1,0 +1,40 @@
+# https://www.elastic.co/guide/en/elasticsearch/reference/6.8/index.html
+# https://github.com/justwatchcom/elasticsearch_exporter
+groups:
+  - name: elastic
+    rules:
+      - alert: ElasticClusterHealthRed
+        expr: elasticsearch_cluster_health_status{color!~"green|yellow"} > 0
+        for: 2m
+        labels:
+          monitored_item: elasticsearch_cluster_health_status/{{$labels.cluster}}
+          service: elastic-status
+          severity: minor
+          spark: 'true'
+        annotations:
+          description: Elastic cluster `{{$labels.cluster}}` status is `{{$labels.color}}`
+          summary: 'Elastic cluster is in red status'
+
+      - alert: ElasticClusterHealthYellow
+        expr: elasticsearch_cluster_health_status{color!~"green|red"} > 0
+        for: 10m
+        labels:
+          monitored_item: elasticsearch_cluster_health_status/{{$labels.cluster}}
+          service: elastic-status
+          severity: minor
+          spark: 'true'
+        annotations:
+          description: Elastic cluster `{{$labels.cluster}}` status is `{{$labels.color}}`
+          summary: 'Elastic cluster is in yellow status'
+
+      - alert: ElasticExporterHealthUp
+        expr: elasticsearch_cluster_health_up{instance="localhost:9114", job="elasticsearch_exporter"} != 1
+        for: 10m
+        labels:
+          monitored_item: elasticsearch_cluster_health_up/{{$labels.job}}
+          service: elastic_exporter-status
+          severity: minor
+          spark: 'true'
+        annotations:
+          description: Elasticsearch health endpoint scrape for cluster `{{$labels.instance}}` status not successful
+          summary: 'Elastic exporter is unhealthy'
