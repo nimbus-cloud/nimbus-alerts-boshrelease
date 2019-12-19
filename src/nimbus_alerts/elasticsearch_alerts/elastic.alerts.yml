@@ -36,5 +36,29 @@ groups:
           severity: minor
           spark: 'true'
         annotations:
-          description: Elasticsearch health endpoint scrape for cluster `{{$labels.instance}}` status not successful
+          description: Elasticsearch health endpoint scrape not successful
           summary: 'Elastic exporter is unhealthy'
+
+      - alert: ElasticDisk95Percent
+        expr: (100 * (elasticsearch_filesystem_data_size_bytes - elasticsearch_filesystem_data_free_bytes) / elasticsearch_filesystem_data_size_bytes) > 95
+        for: 2m
+        labels:
+          monitored_item: elasticsearch_filesystem_data_size_bytes/{{$labels.cluster}}/{{$labels.host}}
+          service: elastic_exporter-status
+          severity: major
+          spark: 'true'
+        annotations:
+          description: Filesystem for `{{$labels.name}}` on `{{$labels.cluster}}` is above 95 percent
+          summary: 'Filesystem above 95%'
+
+      - alert: ElasticDisk80Percent
+        expr: (100 * (elasticsearch_filesystem_data_size_bytes - elasticsearch_filesystem_data_free_bytes) / elasticsearch_filesystem_data_size_bytes) > 80
+        for: 10m
+        labels:
+          monitored_item: elasticsearch_filesystem_data_size_bytes/{{$labels.name}}
+          service: elastic_exporter-status
+          severity: major
+          spark: 'true'
+        annotations:
+          description: Filesystem for `{{$labels.name}}` on `{{$labels.cluster}}` is above 80 percent
+          summary: 'Filesystem above 80%'
