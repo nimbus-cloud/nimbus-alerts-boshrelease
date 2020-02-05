@@ -5,6 +5,7 @@ groups:
         expr: shield_job_status == 1
         for: 5h
         labels:
+          monitored_item: "`{{$labels.job_name}}`"
           service: shield
           severity: warning
           spark: "true"
@@ -16,6 +17,7 @@ groups:
         expr: shield_job_status == 2
         for: 5h
         labels:
+          monitored_item: "`{{$labels.job_name}}`"
           service: shield
           severity: warning
           spark: "true"
@@ -27,6 +29,7 @@ groups:
         expr: shield_job_status == 4 and shield_job_paused == 0
         for: 5h
         labels:
+          monitored_item: "`{{$labels.job_name}}`"
           service: shield
           severity: minor
           spark: "true"
