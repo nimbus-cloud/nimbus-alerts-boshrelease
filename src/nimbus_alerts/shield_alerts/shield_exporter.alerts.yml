@@ -41,6 +41,7 @@ groups:
         expr: shield_job_paused == 1
         for: 5h
         labels:
+          monitored_item: "`{{$labels.job_name}}`"
           service: shield
           severity: minor
           spark: "true"
