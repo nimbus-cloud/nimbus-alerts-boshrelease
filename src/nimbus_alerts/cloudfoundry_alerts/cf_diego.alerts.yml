@@ -134,7 +134,6 @@ groups:
         is too high: {{$value}} sec'
   - alert: CFDiegoGardenProcessStalled
     expr: changes(bosh_job_process_cpu_total{bosh_job_process_name="garden"}[30m]) == 0
-      > 0
     for: 15m
     labels:
       monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
