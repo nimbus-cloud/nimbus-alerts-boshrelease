@@ -139,7 +139,7 @@ groups:
       monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
       service: cf
       severity: major
-      spark: "false"
+      spark: "true"
     annotations:
       description: Diego garden process stalled at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}`
       summary: 'Diego garden process stalled at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}.`
