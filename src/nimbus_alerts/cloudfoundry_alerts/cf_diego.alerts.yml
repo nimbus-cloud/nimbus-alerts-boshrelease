@@ -133,7 +133,7 @@ groups:
       summary: 'Diego Nsync bulker desired LRP sync duration at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}`
         is too high: {{$value}} sec'
   - alert: CFDiegoGardenProcessStalled
-    expr: changes(bosh_job_process_cpu_total{bosh_job_process_name="garden"}[40m]) == 0
+    expr: changes(bosh_job_process_cpu_total{bosh_job_process_name="garden"}[50m]) == 0
     for: 5m
     labels:
       monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
