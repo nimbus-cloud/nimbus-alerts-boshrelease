@@ -145,7 +145,7 @@ groups:
       summary: '3+ Diego garden processes stalled at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}.`
         The cells may be unresponsive'  
   - alert: CFDiegoGardenProcessStalled
-    expr: changes(bosh_job_process_cpu_total{bosh_job_process_name="garden"}[40m]) == 0
+    expr: changes(bosh_job_process_cpu_total{bosh_job_process_name="garden", bosh_name!~"Onyx.*|Scolocate.*"}[40m]) == 0
     for: 5m
     labels:
       monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
@@ -155,4 +155,16 @@ groups:
     annotations:
       description: Diego garden process stalled at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}`
       summary: 'Diego garden process stalled at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}.`
-        The cell may to unresponsive'
+        The cell may be unresponsive'
+  - alert: CFDiegoGardenProcessStalledSCMS
+    expr: changes(bosh_job_process_cpu_total{bosh_job_process_name="garden", bosh_name=~"Onyx.*|Scolocate.*"}[2h]) == 0
+    for: 5m
+    labels:
+      monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
+      service: cf
+      severity: major
+      spark: "false"
+    annotations:
+      description: Diego garden process stalled at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}`
+      summary: 'Diego garden process stalled at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}.`
+        The cell may be unresponsive'
