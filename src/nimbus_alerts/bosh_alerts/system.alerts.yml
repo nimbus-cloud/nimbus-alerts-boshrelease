@@ -22,7 +22,7 @@ groups:
           monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
         annotations:
           summary: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` is reporting low free RAM"
-          description: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` has used more than 90% of its RAM for 3 days: {{$value}}%"
+          description: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` has used {{$value}}% of its RAM for 3 days"
       - alert: BOSHJobLowSwap
         expr: avg(bosh_job_swap_percent{bosh_job_name!~"^compilation.*"}) by(environment, bosh_name, bosh_deployment, bosh_job_name, bosh_job_index) > 90
         for: 3d
@@ -33,7 +33,7 @@ groups:
           monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
         annotations:
           summary: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` is reporting low swap"
-          description: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` has used more than 90% of its swap for 3 days: {{$value}}%"
+          description: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` has used {{$value}}% of its swap for 3 days"
       - alert: BOSHJobSystemDiskFull
         expr: avg(bosh_job_system_disk_percent{bosh_job_name!~"^compilation.*"}) by(environment, bosh_name, bosh_deployment, bosh_job_name, bosh_job_index) > 80
         for: 30m
@@ -44,7 +44,7 @@ groups:
           monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
         annotations:
           summary: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` is running out of system disk"
-          description: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` has used more than 80% of its system disk for 30m: {{$value}}%"
+          description: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` has used {{$value}}% of its system disk for 30m"
       - alert: BOSHJobSystemDiskFullSlack
         expr: avg(bosh_job_system_disk_percent{bosh_job_name!~"^compilation.*"}) by(environment, bosh_name, bosh_deployment, bosh_job_name, bosh_job_index) > 70
         for: 30m
@@ -55,7 +55,7 @@ groups:
           monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
         annotations:
           summary: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` is running out of system disk"
-          description: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` has used more than 70% of its system disk for 30m: {{$value}}%"
+          description: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` has used {{$value}}% of its system disk for 30m"
       - alert: BOSHJobEphemeralDiskFull
         expr: avg(bosh_job_ephemeral_disk_percent{bosh_job_name!~"^compilation.*"}) by(environment, bosh_name, bosh_deployment, bosh_job_name, bosh_job_index) > 80
         for: 30m
@@ -66,7 +66,7 @@ groups:
           monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
         annotations:
           summary: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` is running out of ephemeral disk"
-          description: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` has used more than 80% of its ephemeral disk for 30ms: {{$value}}%"
+          description: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` has used {{$value}}% of its ephemeral disk for 30m"
       - alert: BOSHJobEphemeralDiskFullSlack
         expr: avg(bosh_job_ephemeral_disk_percent{bosh_job_name!~"^compilation.*"}) by(environment, bosh_name, bosh_deployment, bosh_job_name, bosh_job_index) > 70
         for: 30m
@@ -77,7 +77,7 @@ groups:
           monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
         annotations:
           summary: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` is running out of ephemeral disk"
-          description: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` has used more than 70% of its ephemeral disk for 30ms: {{$value}}%"
+          description: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` has used {{$value}}% of its ephemeral disk for 30m"
       - alert: BOSHJobPersistentDiskFull
         expr: avg(bosh_job_persistent_disk_percent{bosh_job_name!~"^compilation.*"}) by(environment, bosh_name, bosh_deployment, bosh_job_name, bosh_job_index) > 80
         for: 30m
@@ -88,7 +88,7 @@ groups:
           monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
         annotations:
           summary: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` is running out of persistent disk"
-          description:  "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` has used more than 80% of its persistent disk for 30m: {{$value}}%"
+          description:  "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` has used {{$value}}% of its persistent disk for 30m"
       - alert: BOSHJobPersistentDiskFullSlack
         expr: avg(bosh_job_persistent_disk_percent{bosh_job_name!~"^compilation.*"}) by(environment, bosh_name, bosh_deployment, bosh_job_name, bosh_job_index) > 70
         for: 30m
@@ -99,7 +99,7 @@ groups:
           monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
         annotations:
           summary: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` is running out of persistent disk"
-          description: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` has used more than 70% of its persistent disk for 30m: {{$value}}%"
+          description: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` has used {{$value}}% of its persistent disk for 30m"
       - alert: BOSHJobPersistentDiskInodesExhausted
         expr: avg(bosh_job_persistent_disk_percent{bosh_job_name!~"^compilation.*"}) by(environment, bosh_name, bosh_deployment, bosh_job_name, bosh_job_index) > 90
         for: 30m
@@ -110,4 +110,4 @@ groups:
           monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
         annotations:
           summary: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` is running out of inodes"
-          description: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` has used more than 90% of its persistent disk inodes for 30m: {{$value}}%"
+          description: "BOSH Job `{{$labels.environment}}/{{$labels.bosh_name}}/{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}/{{$labels.bosh_job_index}}` has used {{$value}}% of its persistent disk inodes for 30m"
