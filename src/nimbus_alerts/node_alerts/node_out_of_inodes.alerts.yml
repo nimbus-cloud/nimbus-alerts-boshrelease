@@ -1,5 +1,5 @@
 groups:
-- name: out-of-inodes
+- name: node-out-of-inodes
   rules:
   - alert: HostOutOfInodes
     expr: node_filesystem_files_free{mountpoint ="/rootfs"} / node_filesystem_files{mountpoint="/rootfs"} * 100 < 10 and ON (instance, device, mountpoint) node_filesystem_readonly{mountpoint="/rootfs"} == 0
