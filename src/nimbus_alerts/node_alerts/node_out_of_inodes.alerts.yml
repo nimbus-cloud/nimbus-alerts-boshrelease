@@ -1,0 +1,26 @@
+groups:
+- name: node-out-of-inodes
+  rules:
+  - alert: HostOutOfInodes
+    expr: node_filesystem_files_free{mountpoint ="/rootfs"} / node_filesystem_files{mountpoint="/rootfs"} * 100 < 10 and ON (instance, device, mountpoint) node_filesystem_readonly{mountpoint="/rootfs"} == 0
+    for: 2m
+    labels:
+      monitored_item: '{{$labels.instance}}'
+      severity: warning
+      spark: "false"
+      service: node
+    annotations:
+      description: "Disk is almost running out of available inodes (< 10% left)\n  VALUE = {{ $value }} % left \n  LABELS: {{ $labels }}"
+      summary: "Host out of inodes (instance '{{ $labels.instance }}')"
+  - alert: HostInodesWillFillIn24Hours
+    expr: node_filesystem_files_free{mountpoint ="/rootfs"} / node_filesystem_files{mountpoint="/rootfs"} * 100 < 10 and predict_linear(node_filesystem_files_free{mountpoint="/rootfs"}[1h], 24 * 3600) < 0 and ON (instance, device, mountpoint) node_filesystem_readonly{mountpoint="/rootfs"} == 0
+    for: 2m
+    labels:
+      monitored_item: '{{$labels.instance}}'
+      severity: warning
+      spark: "false"
+      service: node
+    annotations:
+      summary: "Host inodes will fill in 24 hours (instance '{{ $labels.instance }}')"
+      description: "Filesystem is predicted to run out of inodes within the next 24 hours at current write rate\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+      
