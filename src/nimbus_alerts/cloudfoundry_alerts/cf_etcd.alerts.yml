@@ -14,4 +14,4 @@ groups:
       description: The `etcd` cluster at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}`
         had {{$value}} leaders during the last 10m
       summary: '`etcd` cluster at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}`
-        has ${{value}} leaders'
+        has {{$value}} leaders'

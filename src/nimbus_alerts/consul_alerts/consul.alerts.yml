@@ -37,4 +37,4 @@ groups:
     annotations:
       description: The Consul cluster at `{{$labels.instance}}` had {{$value}} leaders
         during the last 5m
-      summary: Consul cluster at`{{$labels.instance}}` has ${{value}} leaders
+      summary: Consul cluster at`{{$labels.instance}}` has {{$value}} leaders
