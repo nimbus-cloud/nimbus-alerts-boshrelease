@@ -15,4 +15,4 @@ groups:
       description: The Firehose at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}`
         has been dropping {{$value}} messages per second during the last 5m
       summary: 'Firehose at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}`
-        is dropping messages at a high rate: ${{value}} msgs/sec'
+        is dropping messages at a high rate: {{$value}} msgs/sec'
