@@ -133,7 +133,7 @@ groups:
       summary: 'Diego Nsync bulker desired LRP sync duration at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}`
         is too high: {{$value}} sec'
   - alert: MultiCFDiegoGardenProcessesStalled
-    expr: count by (environment, bosh_name, bosh_deployment, bosh_job_name) (changes(bosh_job_process_cpu_total{bosh_job_process_name="garden"}[45m]) == 0) > 2
+    expr: count by (environment, bosh_name, bosh_deployment, bosh_job_name) (changes(bosh_job_process_cpu_total{bosh_job_process_name="garden"}[60m]) == 0) > 2
     for: 5m
     labels:
       monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
@@ -145,7 +145,7 @@ groups:
       summary: '3+ Diego garden processes stalled at CF `{{$labels.environment}}/{{$labels.bosh_deployment}}.`
         The cells may be unresponsive'
   - alert: CFDiegoGardenProcessStalled
-    expr: changes(bosh_job_process_cpu_total{bosh_job_process_name="garden", bosh_name!~"Onyx.*|Scolocate.*"}[60m]) == 0
+    expr: changes(bosh_job_process_cpu_total{bosh_job_process_name="garden", bosh_name!~"Onyx.*|Scolocate.*"}[80m]) == 0
     for: 5m
     labels:
       monitored_item: '{{$labels.bosh_deployment}}/{{$labels.bosh_job_name}}'
